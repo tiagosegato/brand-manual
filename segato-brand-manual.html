@@ -1,0 +1,794 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Manual da Marca — Tiago Segato</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Advent+Pro:ital,wght@0,100..900;1,100..900&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  /* ===== TOKENS DARK ===== */
+  [data-theme="dark"] {
+    --bg: #000; --bg2: #0a0a0a; --bg3: #111; --surface: #1c1c1e; --surface2: #2c2c2e;
+    --border: rgba(255,255,255,0.08); --border-strong: rgba(255,255,255,0.14);
+    --text: #f5f5f7; --text2: #a1a1a6; --text3: #6e6e73;
+    --nav-bg: rgba(0,0,0,0.82);
+    --glow-preview-bg: #000;
+    --swatch-border: rgba(255,255,255,.1);
+    --color-card-bg-row: #0a0a0a;
+    --color-card-surface-row: #1c1c1e;
+    --color-card-text-row: #111;
+    --toggle-bg: #1c1c1e;
+    --toggle-border: rgba(255,255,255,0.12);
+    --toggle-icon: #a1a1a6;
+  }
+
+  /* ===== TOKENS LIGHT ===== */
+  [data-theme="light"] {
+    --bg: #f5f5f7; --bg2: #ebebed; --bg3: #ffffff; --surface: #e5e5ea; --surface2: #d1d1d6;
+    --border: rgba(0,0,0,0.08); --border-strong: rgba(0,0,0,0.14);
+    --text: #1d1d1f; --text2: #515154; --text3: #86868b;
+    --nav-bg: rgba(245,245,247,0.82);
+    --glow-preview-bg: #e5e5ea;
+    --swatch-border: rgba(0,0,0,.1);
+    --color-card-bg-row: #ebebed;
+    --color-card-surface-row: #e5e5ea;
+    --color-card-text-row: #f0f0f2;
+    --toggle-bg: #ffffff;
+    --toggle-border: rgba(0,0,0,0.10);
+    --toggle-icon: #515154;
+  }
+
+  /* ===== BRAND COLORS (theme-independent) ===== */
+  :root {
+    --accent: #4682A0;
+    --accent2: #2997ff;
+    --purple: #464BA1;
+    --purple2: #bf5af2;
+    --r: 18px; --r2: 24px;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--bg); color: var(--text);
+    font-family: 'DM Sans', sans-serif; font-size: 16px; line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    transition: background .3s ease, color .3s ease;
+  }
+
+  /* ===== NAV ===== */
+  nav {
+    position: sticky; top: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 48px; height: 52px;
+    background: var(--nav-bg); backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border);
+    transition: background .3s, border-color .3s;
+  }
+  .nav-brand { font-size: 13px; font-weight: 500; color: var(--text2); display: flex; align-items: center; gap: 10px; transition: color .3s; }
+  .nav-links { display: flex; gap: 24px; list-style: none; align-items: center; }
+  .nav-links a { font-size: 12px; color: var(--text3); text-decoration: none; transition: color .2s; }
+  .nav-links a:hover { color: var(--text2); }
+
+  .theme-toggle {
+    width: 34px; height: 34px; border-radius: 50%;
+    background: var(--toggle-bg); border: 1px solid var(--toggle-border);
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer; transition: all .2s; color: var(--toggle-icon); font-size: 14px;
+  }
+  .theme-toggle:hover { transform: scale(1.1); border-color: var(--accent); color: var(--accent); }
+
+  /* ===== LAYOUT ===== */
+  .page { max-width: 900px; margin: 0 auto; padding: 80px 40px 120px; }
+
+  .section { margin-bottom: 100px; }
+  .section-label {
+    font-family: 'DM Mono', monospace; font-size: 11px; font-weight: 500;
+    color: var(--accent); letter-spacing: .16em; text-transform: uppercase;
+    margin-bottom: 12px; display: block;
+  }
+  .section-title {
+    font-family: 'Advent Pro', sans-serif;
+    font-size: 36px; font-weight: 300; letter-spacing: -.025em;
+    color: var(--text); margin-bottom: 8px; line-height: 1.1; transition: color .3s;
+  }
+  .section-title strong { font-weight: 700; }
+  .section-desc { font-size: 15px; color: var(--text2); max-width: 520px; line-height: 1.7; margin-bottom: 48px; transition: color .3s; }
+  .divider { width: 100%; height: 1px; background: var(--border); margin: 60px 0; transition: background .3s; }
+  .sub-label { font-family:'DM Mono',monospace; font-size:11px; color:var(--text3); letter-spacing:.1em; text-transform:uppercase; margin-bottom:12px; transition: color .3s; }
+
+  /* ===== HERO ===== */
+  .manual-hero {
+    min-height: 340px; display: flex; flex-direction: column;
+    justify-content: flex-end; padding: 64px 0 80px;
+    position: relative; margin-bottom: 80px;
+    border-bottom: 1px solid var(--border); overflow: hidden;
+  }
+  .manual-hero-glow {
+    position: absolute; width: 700px; height: 500px;
+    background: radial-gradient(ellipse at center, rgba(70,130,160,0.15) 0%, transparent 70%);
+    top: -100px; left: -100px; pointer-events: none;
+  }
+  .manual-hero-glow2 {
+    position: absolute; width: 400px; height: 300px;
+    background: radial-gradient(ellipse at center, rgba(191,90,242,0.08) 0%, transparent 70%);
+    bottom: 0; right: 0; pointer-events: none;
+  }
+  [data-theme="light"] .manual-hero-glow {
+    background: radial-gradient(ellipse at center, rgba(70,130,160,0.32) 0%, transparent 70%);
+  }
+  [data-theme="light"] .manual-hero-glow2 {
+    background: radial-gradient(ellipse at center, rgba(191,90,242,0.24) 0%, transparent 70%);
+  }
+  .manual-hero-eyebrow { font-family: 'DM Mono', monospace; font-size: 12px; color: var(--text3); letter-spacing: .14em; text-transform: uppercase; margin-bottom: 20px; }
+  .manual-hero h1 {
+    font-family: 'Advent Pro', sans-serif;
+    font-size: clamp(40px, 6vw, 68px); font-weight: 300; letter-spacing: -.03em; line-height: 1.05; margin-bottom: 16px; color: var(--text); transition: color .3s;
+  }
+  .manual-hero h1 strong {
+    font-weight: 800;
+    background: linear-gradient(135deg, #4682A0 0%, #464BA1 100%);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+  }
+  .manual-hero p { font-size: 16px; color: var(--text2); font-weight: 300; max-width: 480px; transition: color .3s; }
+
+  /* ===== COLORS ===== */
+  .color-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2px; border-radius: var(--r2); overflow: hidden; border: 1px solid var(--border); }
+  .color-card { padding: 28px 22px; display: flex; flex-direction: column; gap: 16px; transition: filter .2s, background .3s; cursor: default; }
+  .color-card:hover { filter: brightness(1.05); }
+  .color-swatch { width: 40px; height: 40px; border-radius: 10px; border: 1px solid var(--swatch-border); }
+  .color-name { font-size: 14px; font-weight: 500; color: var(--text); transition: color .3s; }
+  .color-hex { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--text3); transition: color .3s; }
+  .color-role { font-size: 12px; color: var(--text3); line-height: 1.4; transition: color .3s; }
+  .color-card-bg { background: var(--color-card-bg-row); }
+  .color-card-surface { background: var(--color-card-surface-row); }
+  .color-card-text { background: var(--color-card-text-row); }
+  .color-card-accent { background: rgba(70,130,160,.10); }
+  .color-card-purple { background: rgba(70,75,161,.10); }
+
+  /* ===== GRADIENTS ===== */
+  .gradient-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .gradient-card { border-radius: var(--r2); overflow: hidden; border: 1px solid var(--border); }
+  .gradient-preview { height: 120px; }
+  .gradient-info { padding: 20px 22px; background: var(--bg3); transition: background .3s; }
+  .gradient-name { font-size: 14px; font-weight: 500; color: var(--text); margin-bottom: 4px; transition: color .3s; }
+  .gradient-code { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--text3); line-height: 1.6; transition: color .3s; }
+  .gradient-use { font-size: 12px; color: var(--accent); margin-top: 8px; }
+
+  /* ===== GLOW ===== */
+  .glow-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .glow-card { border-radius: var(--r2); overflow: hidden; border: 1px solid var(--border); }
+  .glow-preview {
+    height: 160px; position: relative;
+    background: var(--glow-preview-bg); display: flex; align-items: center; justify-content: center;
+    transition: background .3s;
+  }
+  .glow-preview-text { font-size: 22px; font-weight: 300; color: var(--text); position: relative; z-index: 1; letter-spacing: -.02em; transition: color .3s; }
+  .glow-info { padding: 20px 22px; background: var(--bg3); transition: background .3s; }
+  .glow-name { font-size: 14px; font-weight: 500; color: var(--text); margin-bottom: 4px; transition: color .3s; }
+  .glow-code { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--text3); line-height: 1.8; transition: color .3s; }
+
+  .glow-blue-bg::before {
+    content: ''; position: absolute; width: 400px; height: 400px;
+    background: radial-gradient(ellipse at center, rgba(70,130,160,0.28) 0%, transparent 65%);
+    top: 50%; left: 50%; transform: translate(-50%, -60%);
+  }
+  [data-theme="light"] .glow-blue-bg::before {
+    background: radial-gradient(ellipse at center, rgba(70,130,160,0.32) 0%, transparent 65%);
+  }
+  .glow-purple-bg::before {
+    content: ''; position: absolute; width: 300px; height: 200px;
+    background: radial-gradient(ellipse at center, rgba(191,90,242,0.22) 0%, transparent 65%);
+    top: 30%; right: 10%; transform: translateY(-50%);
+  }
+  [data-theme="light"] .glow-purple-bg::before {
+    background: radial-gradient(ellipse at center, rgba(191,90,242,0.28) 0%, transparent 65%);
+  }
+  .glow-combo-bg::before {
+    content: ''; position: absolute; width: 350px; height: 350px;
+    background: radial-gradient(ellipse at center, rgba(70,130,160,0.20) 0%, transparent 65%);
+    top: 50%; left: 40%; transform: translate(-50%, -60%);
+  }
+  .glow-combo-bg::after {
+    content: ''; position: absolute; width: 200px; height: 150px;
+    background: radial-gradient(ellipse at center, rgba(191,90,242,0.14) 0%, transparent 65%);
+    bottom: 0; right: 5%;
+  }
+  [data-theme="light"] .glow-combo-bg::before {
+    background: radial-gradient(ellipse at center, rgba(70,130,160,0.28) 0%, transparent 65%);
+  }
+  [data-theme="light"] .glow-combo-bg::after {
+    background: radial-gradient(ellipse at center, rgba(191,90,242,0.22) 0%, transparent 65%);
+  }
+
+  /* ===== TYPOGRAPHY ===== */
+  .type-grid { display: flex; flex-direction: column; gap: 2px; border-radius: var(--r2); overflow: hidden; border: 1px solid var(--border); }
+  .type-row { background: var(--bg3); padding: 28px 32px; display: flex; align-items: baseline; justify-content: space-between; gap: 24px; transition: background .2s; }
+  .type-row:hover { background: var(--surface); }
+  .type-sample { flex: 1; }
+  .type-meta { text-align: right; flex-shrink: 0; }
+  .type-meta-name { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--text3); letter-spacing: .1em; text-transform: uppercase; transition: color .3s; }
+  .type-meta-spec { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--accent); margin-top: 4px; }
+
+  /* ===== COMPONENTS ===== */
+  .comp-grid { display: flex; flex-direction: column; gap: 48px; }
+  .comp-block { background: var(--bg3); border: 1px solid var(--border); border-radius: var(--r2); padding: 40px; transition: background .3s, border-color .3s; }
+  .comp-label { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--text3); letter-spacing: .1em; text-transform: uppercase; margin-bottom: 24px; transition: color .3s; }
+  .comp-preview { display: flex; flex-wrap: wrap; gap: 16px; align-items: center; margin-bottom: 28px; padding-bottom: 28px; border-bottom: 1px solid var(--border); }
+  .comp-code { font-family: 'DM Mono', monospace; font-size: 12px; color: var(--text3); line-height: 1.8; transition: color .3s; }
+
+  .btn-primary {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: var(--accent); color: #fff;
+    font-size: 15px; font-weight: 500; font-family: 'DM Sans', sans-serif;
+    padding: 13px 26px; border-radius: 100px; border: none; cursor: pointer; transition: all .2s;
+  }
+  .btn-primary:hover { background: #3a6f8c; transform: translateY(-1px); box-shadow: 0 8px 32px rgba(70,130,160,.35); }
+  .btn-secondary {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: var(--surface); color: var(--text);
+    font-size: 15px; font-weight: 500; font-family: 'DM Sans', sans-serif;
+    padding: 13px 26px; border-radius: 100px; border: 1px solid var(--border); cursor: pointer; transition: all .2s;
+  }
+  .btn-secondary:hover { background: var(--surface2); transform: translateY(-1px); }
+
+  .badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(70,130,160,0.12); border: 1px solid rgba(70,130,160,0.25);
+    border-radius: 100px; padding: 6px 16px;
+    font-size: 13px; font-weight: 500; color: var(--accent); font-family: 'DM Sans', sans-serif;
+  }
+  .badge-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--accent2); animation: pulse 2s ease infinite; }
+  @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.6;transform:scale(.85)} }
+
+  .card-demo {
+    background: var(--bg3); border: 1px solid var(--border); border-radius: var(--r2);
+    padding: 28px; transition: background .25s;
+  }
+  .card-demo:hover { background: var(--surface); }
+  .card-demo-tag { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--accent); letter-spacing: .12em; text-transform: uppercase; margin-bottom: 12px; }
+  .card-demo-title { font-family: 'Advent Pro', sans-serif; font-size: 20px; font-weight: 600; color: var(--text); margin-bottom: 8px; transition: color .3s; }
+  .card-demo-desc { font-size: 13px; color: var(--text3); line-height: 1.6; transition: color .3s; }
+
+  /* ===== MOTION ===== */
+  .motion-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .motion-card { background: var(--bg3); border: 1px solid var(--border); border-radius: var(--r2); padding: 32px; transition: background .3s, border-color .3s; }
+  .motion-demo-area { height: 80px; display: flex; align-items: center; justify-content: center; margin-bottom: 20px; }
+  .motion-box { width: 48px; height: 48px; border-radius: 12px; background: var(--accent); opacity: 0; transform: translateY(16px); transition: opacity .65s ease, transform .65s ease; }
+  .motion-card:hover .motion-box { opacity: 1; transform: translateY(0); }
+  .motion-fade-box { width: 48px; height: 48px; border-radius: 12px; background: var(--purple2); opacity: 0; transition: opacity .4s ease; }
+  .motion-card:hover .motion-fade-box { opacity: 1; }
+  .motion-pulse-box { width: 10px; height: 10px; border-radius: 50%; background: var(--accent2); animation: pulse 2s ease infinite; }
+  .motion-label { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--text3); letter-spacing: .1em; text-transform: uppercase; margin-bottom: 6px; transition: color .3s; }
+  .motion-value { font-size: 13px; color: var(--text2); transition: color .3s; }
+  .motion-hint { font-size: 11px; color: var(--text3); margin-top: 4px; font-style: italic; transition: color .3s; }
+
+  /* ===== SPACING ===== */
+  .spacing-grid { display: flex; flex-direction: column; gap: 2px; border-radius: var(--r2); overflow: hidden; border: 1px solid var(--border); }
+  .spacing-row { background: var(--bg3); padding: 16px 24px; display: flex; align-items: center; gap: 20px; transition: background .2s; }
+  .spacing-row:hover { background: var(--surface); }
+  .spacing-bar-wrap { flex: 1; }
+  .spacing-bar { height: 6px; border-radius: 3px; background: var(--accent); opacity: .5; }
+  .spacing-meta { font-family: 'DM Mono', monospace; font-size: 12px; color: var(--text3); min-width: 80px; transition: color .3s; }
+  .spacing-name { font-size: 13px; color: var(--text2); min-width: 100px; transition: color .3s; }
+
+  /* ===== RADIUS ===== */
+  .radius-grid { display: flex; gap: 16px; flex-wrap: wrap; }
+  .radius-card { background: var(--bg3); border: 1px solid var(--border); padding: 24px; display: flex; flex-direction: column; align-items: center; gap: 14px; flex: 1; min-width: 120px; transition: background .3s, border-color .3s; }
+  .radius-demo { width: 60px; height: 60px; background: var(--surface2); border: 1px solid var(--border); transition: background .3s, border-color .3s; }
+  .radius-label { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--text3); text-align: center; transition: color .3s; }
+  .radius-name { font-size: 13px; color: var(--text2); font-weight: 500; transition: color .3s; }
+
+  /* ===== INFO BOXES ===== */
+  .info-box { background: var(--bg3); border: 1px solid var(--border); border-radius: var(--r); padding: 20px 24px; transition: background .3s, border-color .3s; }
+  .info-box-accent { background: var(--bg3); border: 1px solid rgba(70,130,160,.2); border-radius: var(--r); padding: 20px 24px; transition: background .3s; }
+  .info-box-title { font-family:'DM Mono',monospace; font-size:11px; color:var(--text3); text-transform:uppercase; letter-spacing:.1em; margin-bottom:10px; transition: color .3s; }
+  .info-box-code { font-family:'DM Mono',monospace; font-size:12px; color:var(--text2); line-height:1.9; transition: color .3s; }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-brand">
+    <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
+      <rect width="22" height="22" rx="5" fill="url(#logoGrad)"/>
+      <text x="3" y="17" font-family="Advent Pro, sans-serif" font-weight="800" font-size="15" fill="white">ts</text>
+      <defs>
+        <linearGradient id="logoGrad" x1="0" y1="0" x2="22" y2="22">
+          <stop offset="0%" stop-color="#4682A0"/>
+          <stop offset="100%" stop-color="#464BA1"/>
+        </linearGradient>
+      </defs>
+    </svg>
+    Tiago Segato
+  </div>
+  <ul class="nav-links">
+    <li><a href="#cores">Cores</a></li>
+    <li><a href="#gradientes">Gradientes</a></li>
+    <li><a href="#efeitos">Efeitos de luz</a></li>
+    <li><a href="#tipografia">Tipografia</a></li>
+    <li><a href="#componentes">Componentes</a></li>
+    <li><a href="#movimento">Movimento</a></li>
+    <li><a href="#espacamento">Espaçamento</a></li>
+    <li>
+      <button class="theme-toggle" id="themeToggle" title="Alternar tema" aria-label="Alternar tema">
+        <svg id="iconMoon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        <svg id="iconSun"  width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+      </button>
+    </li>
+  </ul>
+</nav>
+
+<div class="page">
+
+  <!-- HERO -->
+  <div class="manual-hero">
+    <div class="manual-hero-glow"></div>
+    <div class="manual-hero-glow2"></div>
+    <div class="manual-hero-eyebrow">Identidade visual · v2.0 · 2025</div>
+    <h1>Manual da<br><strong>Marca</strong></h1>
+    <p>Guia de referência visual de Tiago Segato — Professor especialista em IA, Web, Mobile e Design.</p>
+  </div>
+
+  <!-- 01 CORES -->
+  <div class="section" id="cores">
+    <span class="section-label">01 · Paleta</span>
+    <h2 class="section-title">Cores <strong>principais</strong></h2>
+    <p class="section-desc">Tema dark baseado no sistema visual da Apple, com os acentos azul e roxo da marca Tiago Segato. O light mode espelha os mesmos tokens com fundos claros Apple (#f5f5f7).</p>
+
+    <p class="sub-label">Fundos e superfícies</p>
+    <div class="color-grid" style="margin-bottom:16px;">
+      <div class="color-card color-card-bg">
+        <div class="color-swatch" style="background:#000;"></div>
+        <div><div class="color-name">Background</div><div class="color-hex">#000 · #f5f5f7</div><div class="color-role">Fundo principal da página</div></div>
+      </div>
+      <div class="color-card color-card-surface">
+        <div class="color-swatch" style="background:#0a0a0a;"></div>
+        <div><div class="color-name">Background 2</div><div class="color-hex">#0a0a0a · #ebebed</div><div class="color-role">Seções alternadas</div></div>
+      </div>
+      <div class="color-card color-card-text">
+        <div class="color-swatch" style="background:#111;"></div>
+        <div><div class="color-name">Background 3</div><div class="color-hex">#111 · #ffffff</div><div class="color-role">Cards e blocos internos</div></div>
+      </div>
+      <div class="color-card color-card-surface">
+        <div class="color-swatch" style="background:#1c1c1e;"></div>
+        <div><div class="color-name">Surface</div><div class="color-hex">#1c1c1e · #e5e5ea</div><div class="color-role">Hover de cards, sobreposições</div></div>
+      </div>
+    </div>
+
+    <p class="sub-label">Texto</p>
+    <div class="color-grid" style="margin-bottom:16px;">
+      <div class="color-card color-card-bg">
+        <div class="color-swatch" style="background:#f5f5f7; border:1px solid var(--swatch-border);"></div>
+        <div><div class="color-name">Text</div><div class="color-hex">#f5f5f7 · #1d1d1f</div><div class="color-role">Títulos e texto principal</div></div>
+      </div>
+      <div class="color-card color-card-bg">
+        <div class="color-swatch" style="background:#a1a1a6;"></div>
+        <div><div class="color-name">Text 2</div><div class="color-hex">#a1a1a6 · #515154</div><div class="color-role">Parágrafos e descrições</div></div>
+      </div>
+      <div class="color-card color-card-bg">
+        <div class="color-swatch" style="background:#6e6e73;"></div>
+        <div><div class="color-name">Text 3</div><div class="color-hex">#6e6e73 · #86868b</div><div class="color-role">Labels, metadados, placeholders</div></div>
+      </div>
+      <div class="color-card color-card-bg">
+        <div class="color-swatch" style="background:rgba(128,128,128,0.2); border:1px solid rgba(128,128,128,0.3);"></div>
+        <div><div class="color-name">Border</div><div class="color-hex">rgba(255,255,255,.08)<br>rgba(0,0,0,.08)</div><div class="color-role">Bordas, divisores, linhas</div></div>
+      </div>
+    </div>
+
+    <p class="sub-label">Acentos da marca</p>
+    <div class="color-grid">
+      <div class="color-card color-card-accent">
+        <div class="color-swatch" style="background:#4682A0;"></div>
+        <div><div class="color-name">Accent Blue</div><div class="color-hex">#4682A0</div><div class="color-role">Cor primária, CTAs, links, destaques</div></div>
+      </div>
+      <div class="color-card color-card-purple">
+        <div class="color-swatch" style="background:#464BA1;"></div>
+        <div><div class="color-name">Purple</div><div class="color-hex">#464BA1</div><div class="color-role">Gradiente secundário, efeitos de luz</div></div>
+      </div>
+      <div class="color-card" style="background:rgba(41,151,255,.08);">
+        <div class="color-swatch" style="background:#2997ff;"></div>
+        <div><div class="color-name">Blue Comp.</div><div class="color-hex">#2997ff</div><div class="color-role">Azul complementar, hover states, brilho</div></div>
+      </div>
+      <div class="color-card" style="background:rgba(191,90,242,.08);">
+        <div class="color-swatch" style="background:#bf5af2;"></div>
+        <div><div class="color-name">Purple Comp.</div><div class="color-hex">#bf5af2</div><div class="color-role">Roxo complementar, glows, detalhes</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- 02 GRADIENTES -->
+  <div class="section" id="gradientes">
+    <span class="section-label">02 · Gradientes</span>
+    <h2 class="section-title">Gradientes <strong>de cor</strong></h2>
+    <p class="section-desc">Usados em textos de destaque, logos e elementos visuais especiais. Nunca em fundos de seção inteira.</p>
+
+    <div class="gradient-grid">
+      <div class="gradient-card">
+        <div class="gradient-preview" style="background:linear-gradient(135deg,#4682A0 0%,#464BA1 100%);"></div>
+        <div class="gradient-info">
+          <div class="gradient-name">Azul → Roxo (principal)</div>
+          <div class="gradient-code">linear-gradient(135deg, #4682A0 0%, #464BA1 100%)</div>
+          <div class="gradient-use">→ Títulos em destaque (h1 strong), logo "ts"</div>
+        </div>
+      </div>
+      <div class="gradient-card">
+        <div class="gradient-preview" style="background:linear-gradient(135deg,#2997ff 0%,#bf5af2 100%);"></div>
+        <div class="gradient-info">
+          <div class="gradient-name">Azul Comp. → Roxo Comp.</div>
+          <div class="gradient-code">linear-gradient(135deg, #2997ff 0%, #bf5af2 100%)</div>
+          <div class="gradient-use">→ Elementos de destaque vibrante, hero glows</div>
+        </div>
+      </div>
+      <div class="gradient-card">
+        <div class="gradient-preview" style="background:linear-gradient(180deg,#4682A0 0%,#464BA1 100%);"></div>
+        <div class="gradient-info">
+          <div class="gradient-name">Azul → Roxo (vertical)</div>
+          <div class="gradient-code">linear-gradient(180deg, #4682A0 0%, #464BA1 100%)</div>
+          <div class="gradient-use">→ Botões, badges coloridos, ícones de redes sociais</div>
+        </div>
+      </div>
+      <div class="gradient-card">
+        <div class="gradient-preview" style="background:linear-gradient(135deg,#464BA1 0%,#bf5af2 100%);"></div>
+        <div class="gradient-info">
+          <div class="gradient-name">Roxo → Roxo Comp.</div>
+          <div class="gradient-code">linear-gradient(135deg, #464BA1 0%, #bf5af2 100%)</div>
+          <div class="gradient-use">→ Hover states especiais, efeitos de luz roxo</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="info-box" style="margin-top:24px;">
+      <div class="info-box-title">Como aplicar gradiente em texto (CSS)</div>
+      <div class="info-box-code">
+        background: linear-gradient(135deg, #4682A0 0%, #464BA1 100%);<br>
+        -webkit-background-clip: text;<br>
+        -webkit-text-fill-color: transparent;<br>
+        background-clip: text;
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- 03 EFEITOS DE LUZ -->
+  <div class="section" id="efeitos">
+    <span class="section-label">03 · Efeitos de luz</span>
+    <h2 class="section-title">Glows <strong>radiais</strong></h2>
+    <p class="section-desc">Halos de luz criados com gradientes radiais posicionados absolutamente. Dão profundidade e atmosfera sem poluir o conteúdo. Passe o mouse sobre os cards para ver cada efeito.</p>
+
+    <div class="glow-grid">
+      <div class="glow-card">
+        <div class="glow-preview glow-blue-bg">
+          <span class="glow-preview-text">Glow azul</span>
+        </div>
+        <div class="glow-info">
+          <div class="glow-name">Hero Glow — Azul primário</div>
+          <div class="glow-code">
+            position: absolute; width: 800px; height: 800px;<br>
+            background: radial-gradient(<br>
+            &nbsp;&nbsp;ellipse at center,<br>
+            &nbsp;&nbsp;rgba(70,130,160, 0.14) 0%, transparent 70%<br>
+            );<br>
+            top: 50%; left: 50%; transform: translate(-50%, -60%);
+          </div>
+        </div>
+      </div>
+      <div class="glow-card">
+        <div class="glow-preview glow-purple-bg">
+          <span class="glow-preview-text">Glow roxo comp.</span>
+        </div>
+        <div class="glow-info">
+          <div class="glow-name">Hero Glow 2 — Roxo complementar</div>
+          <div class="glow-code">
+            position: absolute; width: 500px; height: 300px;<br>
+            background: radial-gradient(<br>
+            &nbsp;&nbsp;ellipse at center,<br>
+            &nbsp;&nbsp;rgba(191,90,242, 0.10) 0%, transparent 70%<br>
+            );<br>
+            bottom: 10%; right: 5%;
+          </div>
+        </div>
+      </div>
+      <div class="glow-card">
+        <div class="glow-preview glow-combo-bg">
+          <span class="glow-preview-text">Combinado</span>
+        </div>
+        <div class="glow-info">
+          <div class="glow-name">Hero — Azul + Roxo Comp. juntos</div>
+          <div class="glow-code">
+            /* Use os dois glows acima sobrepostos */<br>
+            /* Opacidade recomendada:<br>
+            &nbsp;&nbsp;azul: 0.10–0.16<br>
+            &nbsp;&nbsp;roxo: 0.07–0.10<br>
+            &nbsp;&nbsp;light mode: reduza ~30% */
+          </div>
+        </div>
+      </div>
+      <div class="glow-card">
+        <div class="glow-preview" style="position:relative;background:var(--glow-preview-bg);">
+          <div style="position:absolute;width:300px;height:300px;background:radial-gradient(ellipse at center,rgba(191,90,242,0.30) 0%,transparent 65%);top:50%;left:50%;transform:translate(-50%,-50%);"></div>
+          <span class="glow-preview-text" style="position:relative;z-index:1;">Glow roxo comp.</span>
+        </div>
+        <div class="glow-info">
+          <div class="glow-name">Glow roxo complementar isolado</div>
+          <div class="glow-code">
+            background: radial-gradient(<br>
+            &nbsp;&nbsp;ellipse at center,<br>
+            &nbsp;&nbsp;rgba(191,90,242, 0.12) 0%,<br>
+            &nbsp;&nbsp;transparent 65%<br>
+            );<br>
+            /* Para seções de destaque especial */
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="info-box-accent" style="margin-top:16px;">
+      <div style="font-size:13px;color:var(--text2);line-height:1.7;transition:color .3s;">
+        <strong style="color:var(--text);transition:color .3s;">Regra de uso:</strong> Os glows devem ter <code style="font-family:'DM Mono',monospace;font-size:12px;color:var(--accent);">pointer-events: none</code> e nunca ultrapassar opacidade 0.20 no dark e 0.14 no light. Posicione-os com <code style="font-family:'DM Mono',monospace;font-size:12px;color:var(--accent);">position: absolute</code> dentro de um container com <code style="font-family:'DM Mono',monospace;font-size:12px;color:var(--accent);">overflow: hidden</code>.
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- 04 TIPOGRAFIA -->
+  <div class="section" id="tipografia">
+    <span class="section-label">04 · Tipografia</span>
+    <h2 class="section-title">Fontes <strong>da marca</strong></h2>
+    <p class="section-desc">Três famílias: Advent Pro para títulos principais e de seção, DM Sans para texto corrido, e DM Mono para labels técnicos, metadados e código.</p>
+
+    <div class="type-grid">
+      <div class="type-row">
+        <div class="type-sample" style="font-family:'Advent Pro',sans-serif;font-size:48px;font-weight:300;letter-spacing:-.03em;line-height:1;color:var(--text);">Título Principal</div>
+        <div class="type-meta"><div class="type-meta-name">Advent Pro</div><div class="type-meta-spec">300 · clamp(44–88px) · -0.03em</div></div>
+      </div>
+      <div class="type-row">
+        <div class="type-sample" style="font-family:'Advent Pro',sans-serif;font-size:36px;font-weight:300;letter-spacing:-.025em;line-height:1.1;color:var(--text);">Título de Seção</div>
+        <div class="type-meta"><div class="type-meta-name">Advent Pro</div><div class="type-meta-spec">300 · clamp(28–46px) · -0.025em</div></div>
+      </div>
+      <div class="type-row">
+        <div class="type-sample" style="font-family:'Advent Pro',sans-serif;font-size:20px;font-weight:600;letter-spacing:-.01em;color:var(--text);">Título de Card</div>
+        <div class="type-meta"><div class="type-meta-name">Advent Pro</div><div class="type-meta-spec">600 · 17–20px · -0.01em</div></div>
+      </div>
+      <div class="type-row">
+        <div class="type-sample" style="font-size:16px;font-weight:300;color:var(--text2);line-height:1.7;">Texto descritivo para parágrafos e explicações, mantendo leveza visual com peso 300 e altura de linha generosa.</div>
+        <div class="type-meta"><div class="type-meta-name">DM Sans</div><div class="type-meta-spec">300 · 15–17px · 1.7 line-height</div></div>
+      </div>
+      <div class="type-row">
+        <div class="type-sample" style="font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);">Label de seção</div>
+        <div class="type-meta"><div class="type-meta-name">DM Mono</div><div class="type-meta-spec">400 · 11px · 0.14em · CAPS</div></div>
+      </div>
+      <div class="type-row">
+        <div class="type-sample" style="font-family:'DM Mono',monospace;font-size:12px;color:var(--text3);line-height:1.8;">#4682A0 · border-radius: 18px<br>padding: 13px 26px</div>
+        <div class="type-meta"><div class="type-meta-name">DM Mono</div><div class="type-meta-spec">400 · 11–13px · código e specs</div></div>
+      </div>
+    </div>
+
+    <div class="info-box" style="margin-top:24px;">
+      <div class="info-box-title">Import Google Fonts</div>
+      <div class="info-box-code">
+        &lt;link href="https://fonts.googleapis.com/css2?<br>
+        &nbsp;&nbsp;family=Advent+Pro:ital,wght@0,100..900;1,100..900<br>
+        &nbsp;&nbsp;&amp;family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600<br>
+        &nbsp;&nbsp;&amp;family=DM+Mono:wght@400;500&amp;display=swap" rel="stylesheet"&gt;
+      </div>
+    </div>
+
+    <div class="info-box-accent" style="margin-top:16px;">
+      <div class="info-box-title">Uso resumido</div>
+      <div class="info-box-code">
+        h1, h2 (títulos) → font-family: 'Advent Pro'<br>
+        h3, cards, destaques → font-family: 'Advent Pro', weight 600<br>
+        parágrafos, botões, body → font-family: 'DM Sans'<br>
+        labels, código, specs → font-family: 'DM Mono'
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- 05 COMPONENTES -->
+  <div class="section" id="componentes">
+    <span class="section-label">05 · Componentes</span>
+    <h2 class="section-title">Elementos <strong>de interface</strong></h2>
+    <p class="section-desc">Botões, badges e cards prontos para reutilização. Todos seguem os tokens de cor, tipografia e espaçamento definidos acima.</p>
+
+    <div class="comp-grid">
+      <div class="comp-block">
+        <div class="comp-label">Botões</div>
+        <div class="comp-preview">
+          <button class="btn-primary">Quero me inscrever →</button>
+          <button class="btn-secondary">Ver mais ↓</button>
+        </div>
+        <div class="comp-code">
+          /* Primário */<br>
+          background: #4682A0 · color: #fff<br>
+          padding: 13px 26px · border-radius: 100px · font: 500 15px DM Sans<br>
+          hover → background: #3a6f8c + translateY(-1px) + box-shadow<br><br>
+          /* Secundário */<br>
+          background: var(--surface) · border: 1px solid var(--border)<br>
+          hover → var(--surface2) + translateY(-1px)
+        </div>
+      </div>
+
+      <div class="comp-block">
+        <div class="comp-label">Badge de status</div>
+        <div class="comp-preview">
+          <div class="badge"><span class="badge-dot"></span>Curso de Extensão · EaD · Gratuito</div>
+        </div>
+        <div class="comp-code">
+          background: rgba(70,130,160, 0.12)<br>
+          border: 1px solid rgba(70,130,160, 0.25)<br>
+          border-radius: 100px · padding: 6px 16px<br>
+          font: 500 13px DM Sans · color: #4682A0<br>
+          dot: 6px · background: #2997ff · animation: pulse 2s
+        </div>
+      </div>
+
+      <div class="comp-block">
+        <div class="comp-label">Card de conteúdo</div>
+        <div class="comp-preview">
+          <div class="card-demo" style="max-width:300px;">
+            <div class="card-demo-tag">Módulo 01 · 80h</div>
+            <div class="card-demo-title">Introdução à Programação</div>
+            <div class="card-demo-desc">Passe o mouse para ver o hover. Fundo muda suavemente em 0.25s.</div>
+          </div>
+        </div>
+        <div class="comp-code">
+          background: var(--bg3) → var(--surface) no hover<br>
+          border: 1px solid var(--border)<br>
+          border-radius: 24px · padding: 28–40px<br>
+          transition: background 0.25s ease<br>
+          title: Advent Pro 600 · tag: DM Mono 11px CAPS #4682A0
+        </div>
+      </div>
+
+      <div class="comp-block">
+        <div class="comp-label">Section tag + título</div>
+        <div class="comp-preview" style="flex-direction:column;align-items:flex-start;gap:8px;">
+          <span class="section-label" style="margin:0;">01 · Estrutura curricular</span>
+          <div style="font-family:'Advent Pro',sans-serif;font-size:28px;font-weight:300;letter-spacing:-.025em;color:var(--text);transition:color .3s;">Três módulos. <strong style="font-weight:700;">Uma jornada completa.</strong></div>
+        </div>
+        <div class="comp-code">
+          tag: DM Mono · 11px · 0.14em letter-spacing · CAPS · #4682A0<br>
+          título: Advent Pro · 300/700 · -0.025em tracking<br>
+          strong dentro do título: font-weight 700 (sem gradiente)
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- 06 MOVIMENTO -->
+  <div class="section" id="movimento">
+    <span class="section-label">06 · Movimento</span>
+    <h2 class="section-title">Animações <strong>e transições</strong></h2>
+    <p class="section-desc">Movimentos sutis e intencionais. Passe o mouse sobre os cards para ver cada animação.</p>
+
+    <div class="motion-grid">
+      <div class="motion-card">
+        <div class="motion-demo-area"><div class="motion-box"></div></div>
+        <div class="motion-label">Fade + Slide Up (scroll reveal)</div>
+        <div class="motion-value">opacity: 0 → 1 + translateY(28px → 0)</div>
+        <div class="motion-value" style="font-family:'DM Mono',monospace;font-size:11px;color:var(--accent);margin-top:6px;">duration: 0.65s · ease</div>
+        <div class="motion-hint">Passe o mouse para ver</div>
+      </div>
+      <div class="motion-card">
+        <div class="motion-demo-area"><div class="motion-fade-box"></div></div>
+        <div class="motion-label">Fade simples (hover de elementos)</div>
+        <div class="motion-value">opacity: 0 → 1</div>
+        <div class="motion-value" style="font-family:'DM Mono',monospace;font-size:11px;color:var(--accent);margin-top:6px;">duration: 0.4s · ease</div>
+        <div class="motion-hint">Passe o mouse para ver</div>
+      </div>
+      <div class="motion-card">
+        <div class="motion-demo-area"><div class="motion-pulse-box"></div></div>
+        <div class="motion-label">Pulse (badge dot)</div>
+        <div class="motion-value">scale + opacity loop</div>
+        <div class="motion-value" style="font-family:'DM Mono',monospace;font-size:11px;color:var(--accent);margin-top:6px;">duration: 2s · ease · infinite</div>
+        <div class="motion-hint">Sempre ativo</div>
+      </div>
+      <div class="motion-card">
+        <div class="motion-demo-area">
+          <div style="width:80px;height:36px;border-radius:100px;background:var(--accent);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:500;color:#fff;transition:all .2s;cursor:pointer;"
+            onmouseover="this.style.transform='translateY(-2px)';this.style.boxShadow='0 8px 32px rgba(70,130,160,.4)'"
+            onmouseout="this.style.transform='';this.style.boxShadow=''">Hover</div>
+        </div>
+        <div class="motion-label">Lift (hover de botão)</div>
+        <div class="motion-value">translateY(-1px) + box-shadow</div>
+        <div class="motion-value" style="font-family:'DM Mono',monospace;font-size:11px;color:var(--accent);margin-top:6px;">duration: 0.2s · ease</div>
+        <div class="motion-hint">Passe o mouse para ver</div>
+      </div>
+    </div>
+
+    <div class="info-box" style="margin-top:16px;">
+      <div class="info-box-title">Scroll Reveal — Intersection Observer</div>
+      <div class="info-box-code">
+        /* CSS */<br>
+        .reveal { opacity: 0; transform: translateY(28px);<br>
+        &nbsp;&nbsp;transition: opacity .65s ease, transform .65s ease; }<br>
+        .reveal.visible { opacity: 1; transform: translateY(0); }<br>
+        .reveal-delay-1 { transition-delay: 0.1s; }<br><br>
+        /* JS */<br>
+        const obs = new IntersectionObserver(entries => {<br>
+        &nbsp;&nbsp;entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });<br>
+        }, { threshold: 0.1 });<br>
+        document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- 07 ESPAÇAMENTO -->
+  <div class="section" id="espacamento">
+    <span class="section-label">07 · Espaçamento e raio</span>
+    <h2 class="section-title">Grid e <strong>bordas</strong></h2>
+    <p class="section-desc">Sistema de espaçamento consistente e dois tokens de border-radius para manter coerência visual entre todos os elementos.</p>
+
+    <p class="sub-label">Espaçamento vertical entre seções</p>
+    <div class="spacing-grid" style="margin-bottom:40px;">
+      <div class="spacing-row"><div class="spacing-name">xs</div><div class="spacing-bar-wrap"><div class="spacing-bar" style="width:8px;"></div></div><div class="spacing-meta">8px</div></div>
+      <div class="spacing-row"><div class="spacing-name">sm</div><div class="spacing-bar-wrap"><div class="spacing-bar" style="width:16px;"></div></div><div class="spacing-meta">16px</div></div>
+      <div class="spacing-row"><div class="spacing-name">md</div><div class="spacing-bar-wrap"><div class="spacing-bar" style="width:28px;"></div></div><div class="spacing-meta">28px</div></div>
+      <div class="spacing-row"><div class="spacing-name">lg</div><div class="spacing-bar-wrap"><div class="spacing-bar" style="width:48px;"></div></div><div class="spacing-meta">48px</div></div>
+      <div class="spacing-row"><div class="spacing-name">xl</div><div class="spacing-bar-wrap"><div class="spacing-bar" style="width:80px;"></div></div><div class="spacing-meta">80px</div></div>
+      <div class="spacing-row"><div class="spacing-name">2xl</div><div class="spacing-bar-wrap"><div class="spacing-bar" style="width:120px;"></div></div><div class="spacing-meta">section padding: 80px</div></div>
+    </div>
+
+    <p class="sub-label">Border Radius</p>
+    <div class="radius-grid">
+      <div class="radius-card" style="border-radius:var(--r);">
+        <div class="radius-demo" style="border-radius:18px;"></div>
+        <div class="radius-label"><div class="radius-name">--r</div>18px<br>Cards, badges, info cards</div>
+      </div>
+      <div class="radius-card" style="border-radius:var(--r2);">
+        <div class="radius-demo" style="border-radius:24px;"></div>
+        <div class="radius-label"><div class="radius-name">--r2</div>24px<br>Grids, vídeo, carrossel</div>
+      </div>
+      <div class="radius-card" style="border-radius:var(--r);">
+        <div class="radius-demo" style="border-radius:100px;"></div>
+        <div class="radius-label"><div class="radius-name">pill</div>100px<br>Botões, badges, tags</div>
+      </div>
+      <div class="radius-card" style="border-radius:var(--r);">
+        <div class="radius-demo" style="border-radius:50%;width:60px;height:60px;"></div>
+        <div class="radius-label"><div class="radius-name">circle</div>50%<br>Ícones, dots, avatares</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  const toggle = document.getElementById('themeToggle');
+  const html = document.documentElement;
+  const iconMoon = document.getElementById('iconMoon');
+  const iconSun = document.getElementById('iconSun');
+
+  function applyTheme(theme) {
+    html.setAttribute('data-theme', theme);
+    if (theme === 'light') {
+      iconMoon.style.display = 'none';
+      iconSun.style.display = 'block';
+    } else {
+      iconMoon.style.display = 'block';
+      iconSun.style.display = 'none';
+    }
+    try { localStorage.setItem('ts-theme', theme); } catch(e) {}
+  }
+
+  let saved = 'dark';
+  try { saved = localStorage.getItem('ts-theme') || 'dark'; } catch(e) {}
+  applyTheme(saved);
+
+  toggle.addEventListener('click', () => {
+    applyTheme(html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
+  });
+</script>
+</body>
+</html>
