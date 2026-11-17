@@ -9,49 +9,44 @@
 <style>
   /* ===== TOKENS DARK ===== */
   [data-theme="dark"] {
-    --bg: #000; --bg2: #0a0a0a; --bg3: #111; --surface: #1c1c1e; --surface2: #2c2c2e;
+    --bg: #000000; --bg-card: #111111; --bg-hover: #1c1c1e;
+    --text-title: #f5f5f7; --text-body: #a1a1a6; --text-label: #838388;
     --border: rgba(255,255,255,0.08); --border-strong: rgba(255,255,255,0.14);
-    --text: #f5f5f7; --text2: #a1a1a6; --text3: #6e6e73;
+    --glow-blue: rgba(70,130,160,0.15); --glow-purple: rgba(191,90,242,0.08);
+    --glow-cover-blue: rgba(70,130,160,0.45); --glow-cover-purple: rgba(70,75,161,0.50);
     --nav-bg: rgba(0,0,0,0.82);
-    --glow-preview-bg: #000;
-    --swatch-border: rgba(255,255,255,.1);
-    --color-card-bg-row: #0a0a0a;
-    --color-card-surface-row: #1c1c1e;
-    --color-card-text-row: #111;
-    --toggle-bg: #1c1c1e;
-    --toggle-border: rgba(255,255,255,0.12);
-    --toggle-icon: #a1a1a6;
+    --swatch-border: rgba(255,255,255,.12);
   }
 
   /* ===== TOKENS LIGHT ===== */
   [data-theme="light"] {
-    --bg: #f5f5f7; --bg2: #ebebed; --bg3: #ffffff; --surface: #e5e5ea; --surface2: #d1d1d6;
+    --bg: #f0f0f0; --bg-card: #ffffff; --bg-hover: #e5e5ea;
+    --text-title: #1d1d1f; --text-body: #515154; --text-label: #66666b;
     --border: rgba(0,0,0,0.08); --border-strong: rgba(0,0,0,0.14);
-    --text: #1d1d1f; --text2: #515154; --text3: #86868b;
-    --nav-bg: rgba(245,245,247,0.82);
-    --glow-preview-bg: #e5e5ea;
-    --swatch-border: rgba(0,0,0,.1);
-    --color-card-bg-row: #ebebed;
-    --color-card-surface-row: #e5e5ea;
-    --color-card-text-row: #f0f0f2;
-    --toggle-bg: #ffffff;
-    --toggle-border: rgba(0,0,0,0.10);
-    --toggle-icon: #515154;
+    --glow-blue: rgba(70,130,160,0.32); --glow-purple: rgba(191,90,242,0.24);
+    --glow-cover-blue: rgba(70,130,160,0.58); --glow-cover-purple: rgba(70,75,161,0.55);
+    --nav-bg: rgba(240,240,240,0.82);
+    --swatch-border: rgba(0,0,0,.12);
   }
 
-  /* ===== BRAND COLORS (theme-independent) ===== */
+  /* ===== CORES DA MARCA (iguais nos dois temas) ===== */
   :root {
-    --accent: #4682A0;
-    --accent2: #2997ff;
-    --purple: #464BA1;
-    --purple2: #bf5af2;
-    --r: 18px; --r2: 24px;
+    --accent: #4682a0;
+    --accent-hover: #3a6f8c;
+    --purple: #464ba1;
+    --accent-2: #2997ff;
+    --purple-2: #bf5af2;
+    --on-accent: #ffffff;
+    --accent-tint: rgba(70,130,160,0.12);
+    --accent-tint-border: rgba(70,130,160,0.25);
+    --shadow-lift: 0 8px 32px rgba(70,130,160,0.35);
+    --r: 18px; --r-2: 24px; --r-pill: 100px; --r-circle: 50%;
   }
 
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
   html { scroll-behavior: smooth; }
   body {
-    background: var(--bg); color: var(--text);
+    background: var(--bg); color: var(--text-title);
     font-family: 'DM Sans', sans-serif; font-size: 16px; line-height: 1.6;
     -webkit-font-smoothing: antialiased;
     transition: background .3s ease, color .3s ease;
@@ -66,16 +61,16 @@
     border-bottom: 1px solid var(--border);
     transition: background .3s, border-color .3s;
   }
-  .nav-brand { font-size: 13px; font-weight: 500; color: var(--text2); display: flex; align-items: center; gap: 10px; transition: color .3s; }
+  .nav-brand { font-size: 13px; font-weight: 500; color: var(--text-body); display: flex; align-items: center; gap: 10px; transition: color .3s; }
   .nav-links { display: flex; gap: 24px; list-style: none; align-items: center; }
-  .nav-links a { font-size: 12px; color: var(--text3); text-decoration: none; transition: color .2s; }
-  .nav-links a:hover { color: var(--text2); }
+  .nav-links a { font-size: 12px; color: var(--text-label); text-decoration: none; transition: color .2s; }
+  .nav-links a:hover { color: var(--text-body); }
 
   .theme-toggle {
-    width: 34px; height: 34px; border-radius: 50%;
-    background: var(--toggle-bg); border: 1px solid var(--toggle-border);
+    width: 34px; height: 34px; border-radius: var(--r-circle);
+    background: var(--bg-card); border: 1px solid var(--border-strong);
     display: flex; align-items: center; justify-content: center;
-    cursor: pointer; transition: all .2s; color: var(--toggle-icon); font-size: 14px;
+    cursor: pointer; transition: all .2s; color: var(--text-body); font-size: 14px;
   }
   .theme-toggle:hover { transform: scale(1.1); border-color: var(--accent); color: var(--accent); }
 
@@ -85,223 +80,195 @@
   .section { margin-bottom: 100px; }
   .section-label {
     font-family: 'DM Mono', monospace; font-size: 11px; font-weight: 500;
-    color: var(--accent); letter-spacing: .16em; text-transform: uppercase;
+    color: var(--accent); letter-spacing: .14em; text-transform: uppercase;
     margin-bottom: 12px; display: block;
   }
   .section-title {
     font-family: 'Advent Pro', sans-serif;
     font-size: 36px; font-weight: 300; letter-spacing: -.025em;
-    color: var(--text); margin-bottom: 8px; line-height: 1.1; transition: color .3s;
+    color: var(--text-title); margin-bottom: 8px; line-height: 1.1; transition: color .3s;
   }
   .section-title strong { font-weight: 700; }
-  .section-desc { font-size: 15px; color: var(--text2); max-width: 520px; line-height: 1.7; margin-bottom: 48px; transition: color .3s; }
+  .section-desc { font-size: 15px; font-weight: 300; color: var(--text-body); max-width: 520px; line-height: 1.7; margin-bottom: 48px; transition: color .3s; }
   .divider { width: 100%; height: 1px; background: var(--border); margin: 60px 0; transition: background .3s; }
-  .sub-label { font-family:'DM Mono',monospace; font-size:11px; color:var(--text3); letter-spacing:.1em; text-transform:uppercase; margin-bottom:12px; transition: color .3s; }
+  .sub-label { font-family:'DM Mono',monospace; font-size:11px; color:var(--text-label); letter-spacing:.1em; text-transform:uppercase; margin-bottom:12px; transition: color .3s; }
 
   /* ===== HERO ===== */
   .manual-hero {
-    min-height: 340px; display: flex; flex-direction: column;
-    justify-content: flex-end; padding: 64px 0 80px;
-    position: relative; margin-bottom: 80px;
+    min-height: 480px; display: flex; flex-direction: column;
+    align-items: center; justify-content: center; text-align: center;
+    padding: 80px 24px; margin-bottom: 80px;
     border-bottom: 1px solid var(--border); overflow: hidden;
+    background:
+      radial-gradient(ellipse 30% 40% at 37% 44%, var(--glow-cover-blue) 0%, transparent 100%),
+      radial-gradient(ellipse 30% 40% at 63% 56%, var(--glow-cover-purple) 0%, transparent 100%);
   }
-  .manual-hero-glow {
-    position: absolute; width: 700px; height: 500px;
-    background: radial-gradient(ellipse at center, rgba(70,130,160,0.15) 0%, transparent 70%);
-    top: -100px; left: -100px; pointer-events: none;
-  }
-  .manual-hero-glow2 {
-    position: absolute; width: 400px; height: 300px;
-    background: radial-gradient(ellipse at center, rgba(191,90,242,0.08) 0%, transparent 70%);
-    bottom: 0; right: 0; pointer-events: none;
-  }
-  [data-theme="light"] .manual-hero-glow {
-    background: radial-gradient(ellipse at center, rgba(70,130,160,0.32) 0%, transparent 70%);
-  }
-  [data-theme="light"] .manual-hero-glow2 {
-    background: radial-gradient(ellipse at center, rgba(191,90,242,0.24) 0%, transparent 70%);
-  }
-  .manual-hero-eyebrow { font-family: 'DM Mono', monospace; font-size: 12px; color: var(--text3); letter-spacing: .14em; text-transform: uppercase; margin-bottom: 20px; }
+  .manual-hero-eyebrow { font-family: 'DM Mono', monospace; font-size: 12px; font-weight: 500; color: var(--accent); letter-spacing: .14em; text-transform: uppercase; margin-bottom: 20px; }
   .manual-hero h1 {
     font-family: 'Advent Pro', sans-serif;
-    font-size: clamp(40px, 6vw, 68px); font-weight: 300; letter-spacing: -.03em; line-height: 1.05; margin-bottom: 16px; color: var(--text); transition: color .3s;
+    font-size: clamp(40px, 6vw, 68px); font-weight: 300; letter-spacing: -.03em; line-height: 1.05; margin-bottom: 16px; color: var(--text-title); transition: color .3s;
   }
   .manual-hero h1 strong {
     font-weight: 800;
-    background: linear-gradient(135deg, #4682A0 0%, #464BA1 100%);
+    background: linear-gradient(135deg, var(--accent) 0%, var(--purple) 100%);
     -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
   }
-  .manual-hero p { font-size: 16px; color: var(--text2); font-weight: 300; max-width: 480px; transition: color .3s; }
+  .manual-hero p { font-size: 16px; color: var(--text-body); font-weight: 300; max-width: 480px; margin: 0 auto; transition: color .3s; }
 
   /* ===== COLORS ===== */
-  .color-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2px; border-radius: var(--r2); overflow: hidden; border: 1px solid var(--border); }
-  .color-card { padding: 28px 22px; display: flex; flex-direction: column; gap: 16px; transition: filter .2s, background .3s; cursor: default; }
-  .color-card:hover { filter: brightness(1.05); }
+  .color-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2px; border-radius: var(--r-2); overflow: hidden; border: 1px solid var(--border); }
+  .color-grid.cols-3 { grid-template-columns: repeat(3, 1fr); }
+  .color-card { padding: 28px 22px; display: flex; flex-direction: column; gap: 16px; background: var(--bg-card); transition: background .3s; cursor: default; }
+  .color-swatches { display: flex; gap: 6px; }
   .color-swatch { width: 40px; height: 40px; border-radius: 10px; border: 1px solid var(--swatch-border); }
-  .color-name { font-size: 14px; font-weight: 500; color: var(--text); transition: color .3s; }
-  .color-hex { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--text3); transition: color .3s; }
-  .color-role { font-size: 12px; color: var(--text3); line-height: 1.4; transition: color .3s; }
-  .color-card-bg { background: var(--color-card-bg-row); }
-  .color-card-surface { background: var(--color-card-surface-row); }
-  .color-card-text { background: var(--color-card-text-row); }
-  .color-card-accent { background: rgba(70,130,160,.10); }
-  .color-card-purple { background: rgba(70,75,161,.10); }
+  .color-name { font-family: 'DM Mono', monospace; font-size: 13px; font-weight: 500; color: var(--text-title); transition: color .3s; }
+  .color-hex { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--text-label); transition: color .3s; }
+  .color-role { font-size: 12px; color: var(--text-body); line-height: 1.4; margin-top: 4px; transition: color .3s; }
 
   /* ===== GRADIENTS ===== */
   .gradient-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-  .gradient-card { border-radius: var(--r2); overflow: hidden; border: 1px solid var(--border); }
+  .gradient-card { border-radius: var(--r-2); overflow: hidden; border: 1px solid var(--border); }
   .gradient-preview { height: 120px; }
-  .gradient-info { padding: 20px 22px; background: var(--bg3); transition: background .3s; }
-  .gradient-name { font-size: 14px; font-weight: 500; color: var(--text); margin-bottom: 4px; transition: color .3s; }
-  .gradient-code { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--text3); line-height: 1.6; transition: color .3s; }
-  .gradient-use { font-size: 12px; color: var(--accent); margin-top: 8px; }
+  .gradient-info { padding: 20px 22px; background: var(--bg-card); transition: background .3s; }
+  .gradient-name { font-size: 14px; font-weight: 500; color: var(--text-title); margin-bottom: 4px; transition: color .3s; }
+  .gradient-code { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--text-label); line-height: 1.6; transition: color .3s; }
+  .gradient-use { font-size: 12px; color: var(--text-body); margin-top: 8px; }
 
   /* ===== GLOW ===== */
   .glow-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-  .glow-card { border-radius: var(--r2); overflow: hidden; border: 1px solid var(--border); }
+  .glow-card { border-radius: var(--r-2); overflow: hidden; border: 1px solid var(--border); }
   .glow-preview {
-    height: 160px; position: relative;
-    background: var(--glow-preview-bg); display: flex; align-items: center; justify-content: center;
+    height: 160px; position: relative; overflow: hidden;
+    background: var(--bg); display: flex; align-items: center; justify-content: center;
     transition: background .3s;
   }
-  .glow-preview-text { font-size: 22px; font-weight: 300; color: var(--text); position: relative; z-index: 1; letter-spacing: -.02em; transition: color .3s; }
-  .glow-info { padding: 20px 22px; background: var(--bg3); transition: background .3s; }
-  .glow-name { font-size: 14px; font-weight: 500; color: var(--text); margin-bottom: 4px; transition: color .3s; }
-  .glow-code { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--text3); line-height: 1.8; transition: color .3s; }
+  .glow-preview-text { font-family: 'Advent Pro', sans-serif; font-size: 24px; font-weight: 300; color: var(--text-title); position: relative; z-index: 1; letter-spacing: -.02em; transition: color .3s; }
+  .glow-info { padding: 20px 22px; background: var(--bg-card); transition: background .3s; }
+  .glow-name { font-size: 14px; font-weight: 500; color: var(--text-title); margin-bottom: 4px; transition: color .3s; }
+  .glow-code { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--text-label); line-height: 1.8; transition: color .3s; }
 
   .glow-blue-bg::before {
-    content: ''; position: absolute; width: 400px; height: 400px;
-    background: radial-gradient(ellipse at center, rgba(70,130,160,0.28) 0%, transparent 65%);
-    top: 50%; left: 50%; transform: translate(-50%, -60%);
-  }
-  [data-theme="light"] .glow-blue-bg::before {
-    background: radial-gradient(ellipse at center, rgba(70,130,160,0.32) 0%, transparent 65%);
+    content: ''; position: absolute; width: 700px; height: 500px;
+    background: radial-gradient(ellipse at center, var(--glow-blue) 0%, transparent 70%);
+    top: 50%; left: 50%; transform: translate(-50%, -50%);
   }
   .glow-purple-bg::before {
-    content: ''; position: absolute; width: 300px; height: 200px;
-    background: radial-gradient(ellipse at center, rgba(191,90,242,0.22) 0%, transparent 65%);
-    top: 30%; right: 10%; transform: translateY(-50%);
+    content: ''; position: absolute; width: 400px; height: 300px;
+    background: radial-gradient(ellipse at center, var(--glow-purple) 0%, transparent 70%);
+    top: 50%; left: 50%; transform: translate(-50%, -50%);
   }
-  [data-theme="light"] .glow-purple-bg::before {
-    background: radial-gradient(ellipse at center, rgba(191,90,242,0.28) 0%, transparent 65%);
-  }
-  .glow-combo-bg::before {
-    content: ''; position: absolute; width: 350px; height: 350px;
-    background: radial-gradient(ellipse at center, rgba(70,130,160,0.20) 0%, transparent 65%);
-    top: 50%; left: 40%; transform: translate(-50%, -60%);
-  }
-  .glow-combo-bg::after {
-    content: ''; position: absolute; width: 200px; height: 150px;
-    background: radial-gradient(ellipse at center, rgba(191,90,242,0.14) 0%, transparent 65%);
-    bottom: 0; right: 5%;
-  }
-  [data-theme="light"] .glow-combo-bg::before {
-    background: radial-gradient(ellipse at center, rgba(70,130,160,0.28) 0%, transparent 65%);
-  }
-  [data-theme="light"] .glow-combo-bg::after {
-    background: radial-gradient(ellipse at center, rgba(191,90,242,0.22) 0%, transparent 65%);
+  .glow-cover {
+    height: auto; aspect-ratio: 16 / 9;
+    background:
+      radial-gradient(ellipse 32% 45% at 37% 41%, var(--glow-cover-blue) 0%, transparent 100%),
+      radial-gradient(ellipse 32% 45% at 63% 59%, var(--glow-cover-purple) 0%, transparent 100%),
+      var(--bg);
   }
 
   /* ===== TYPOGRAPHY ===== */
-  .type-grid { display: flex; flex-direction: column; gap: 2px; border-radius: var(--r2); overflow: hidden; border: 1px solid var(--border); }
-  .type-row { background: var(--bg3); padding: 28px 32px; display: flex; align-items: baseline; justify-content: space-between; gap: 24px; transition: background .2s; }
-  .type-row:hover { background: var(--surface); }
+  .type-grid { display: flex; flex-direction: column; gap: 2px; border-radius: var(--r-2); overflow: hidden; border: 1px solid var(--border); }
+  .type-row { background: var(--bg-card); padding: 28px 32px; display: flex; align-items: baseline; justify-content: space-between; gap: 24px; transition: background .2s; }
+  .type-row:hover { background: var(--bg-hover); }
   .type-sample { flex: 1; }
   .type-meta { text-align: right; flex-shrink: 0; }
-  .type-meta-name { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--text3); letter-spacing: .1em; text-transform: uppercase; transition: color .3s; }
-  .type-meta-spec { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--accent); margin-top: 4px; }
+  .type-meta-name { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--text-label); letter-spacing: .1em; text-transform: uppercase; transition: color .3s; }
+  .type-meta-spec { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--text-body); margin-top: 4px; }
 
   /* ===== COMPONENTS ===== */
   .comp-grid { display: flex; flex-direction: column; gap: 48px; }
-  .comp-block { background: var(--bg3); border: 1px solid var(--border); border-radius: var(--r2); padding: 40px; transition: background .3s, border-color .3s; }
-  .comp-label { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--text3); letter-spacing: .1em; text-transform: uppercase; margin-bottom: 24px; transition: color .3s; }
+  .comp-block { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--r-2); padding: 40px; transition: background .3s, border-color .3s; }
+  .comp-label { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--text-label); letter-spacing: .1em; text-transform: uppercase; margin-bottom: 24px; transition: color .3s; }
   .comp-preview { display: flex; flex-wrap: wrap; gap: 16px; align-items: center; margin-bottom: 28px; padding-bottom: 28px; border-bottom: 1px solid var(--border); }
-  .comp-code { font-family: 'DM Mono', monospace; font-size: 12px; color: var(--text3); line-height: 1.8; transition: color .3s; }
+  .comp-code { font-family: 'DM Mono', monospace; font-size: 12px; color: var(--text-label); line-height: 1.8; transition: color .3s; }
 
   .btn-primary {
     display: inline-flex; align-items: center; gap: 8px;
-    background: var(--accent); color: #fff;
+    background: var(--accent); color: var(--on-accent);
     font-size: 15px; font-weight: 500; font-family: 'DM Sans', sans-serif;
-    padding: 13px 26px; border-radius: 100px; border: none; cursor: pointer; transition: all .2s;
+    padding: 13px 26px; border-radius: var(--r-pill); border: none; cursor: pointer; transition: all .2s;
   }
-  .btn-primary:hover { background: #3a6f8c; transform: translateY(-1px); box-shadow: 0 8px 32px rgba(70,130,160,.35); }
+  .btn-primary:hover { background: var(--accent-hover); transform: translateY(-1px); box-shadow: var(--shadow-lift); }
   .btn-secondary {
     display: inline-flex; align-items: center; gap: 8px;
-    background: var(--surface); color: var(--text);
+    background: var(--bg-hover); color: var(--text-title);
     font-size: 15px; font-weight: 500; font-family: 'DM Sans', sans-serif;
-    padding: 13px 26px; border-radius: 100px; border: 1px solid var(--border); cursor: pointer; transition: all .2s;
+    padding: 13px 26px; border-radius: var(--r-pill); border: 1px solid var(--border); cursor: pointer; transition: all .2s;
   }
-  .btn-secondary:hover { background: var(--surface2); transform: translateY(-1px); }
+  .btn-secondary:hover { border-color: var(--border-strong); transform: translateY(-1px); }
 
   .badge {
     display: inline-flex; align-items: center; gap: 8px;
-    background: rgba(70,130,160,0.12); border: 1px solid rgba(70,130,160,0.25);
-    border-radius: 100px; padding: 6px 16px;
+    background: var(--accent-tint); border: 1px solid var(--accent-tint-border);
+    border-radius: var(--r-pill); padding: 6px 16px;
     font-size: 13px; font-weight: 500; color: var(--accent); font-family: 'DM Sans', sans-serif;
   }
-  .badge-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--accent2); animation: pulse 2s ease infinite; }
+  .badge-dot { width: 6px; height: 6px; border-radius: var(--r-circle); background: var(--accent-2); animation: pulse 2s ease infinite; }
   @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.6;transform:scale(.85)} }
 
   .card-demo {
-    background: var(--bg3); border: 1px solid var(--border); border-radius: var(--r2);
+    background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--r-2);
     padding: 28px; transition: background .25s;
   }
-  .card-demo:hover { background: var(--surface); }
-  .card-demo-tag { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--accent); letter-spacing: .12em; text-transform: uppercase; margin-bottom: 12px; }
-  .card-demo-title { font-family: 'Advent Pro', sans-serif; font-size: 20px; font-weight: 600; color: var(--text); margin-bottom: 8px; transition: color .3s; }
-  .card-demo-desc { font-size: 13px; color: var(--text3); line-height: 1.6; transition: color .3s; }
+  .card-demo:hover { background: var(--bg-hover); }
+  .card-demo-tag { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--accent); letter-spacing: .12em; text-transform: uppercase; margin-bottom: 10px; }
+  .card-demo-title { font-family: 'Advent Pro', sans-serif; font-size: 20px; font-weight: 600; letter-spacing: -.01em; color: var(--text-title); margin-bottom: 8px; transition: color .3s; }
+  .card-demo-desc { font-size: 13px; color: var(--text-label); line-height: 1.6; transition: color .3s; }
 
   /* ===== MOTION ===== */
   .motion-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-  .motion-card { background: var(--bg3); border: 1px solid var(--border); border-radius: var(--r2); padding: 32px; transition: background .3s, border-color .3s; }
+  .motion-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--r-2); padding: 32px; transition: background .3s, border-color .3s; }
   .motion-demo-area { height: 80px; display: flex; align-items: center; justify-content: center; margin-bottom: 20px; }
-  .motion-box { width: 48px; height: 48px; border-radius: 12px; background: var(--accent); opacity: 0; transform: translateY(16px); transition: opacity .65s ease, transform .65s ease; }
+  .motion-box { width: 48px; height: 48px; border-radius: 12px; background: var(--accent); opacity: 0; transform: translateY(28px); transition: opacity .65s ease, transform .65s ease; }
   .motion-card:hover .motion-box { opacity: 1; transform: translateY(0); }
-  .motion-fade-box { width: 48px; height: 48px; border-radius: 12px; background: var(--purple2); opacity: 0; transition: opacity .4s ease; }
-  .motion-card:hover .motion-fade-box { opacity: 1; }
-  .motion-pulse-box { width: 10px; height: 10px; border-radius: 50%; background: var(--accent2); animation: pulse 2s ease infinite; }
-  .motion-label { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--text3); letter-spacing: .1em; text-transform: uppercase; margin-bottom: 6px; transition: color .3s; }
-  .motion-value { font-size: 13px; color: var(--text2); transition: color .3s; }
-  .motion-hint { font-size: 11px; color: var(--text3); margin-top: 4px; font-style: italic; transition: color .3s; }
+  .motion-pulse-box { width: 10px; height: 10px; border-radius: var(--r-circle); background: var(--accent-2); animation: pulse 2s ease infinite; }
+  .motion-lift { padding: 10px 22px; border-radius: var(--r-pill); background: var(--accent); color: var(--on-accent); font-size: 13px; font-weight: 500; transition: all .2s; cursor: pointer; }
+  .motion-card:hover .motion-lift { transform: translateY(-1px); box-shadow: var(--shadow-lift); }
+  .motion-label { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--text-label); letter-spacing: .1em; text-transform: uppercase; margin-bottom: 6px; transition: color .3s; }
+  .motion-value { font-size: 13px; color: var(--text-body); transition: color .3s; }
+  .motion-spec { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--text-label); margin-top: 6px; }
 
   /* ===== SPACING ===== */
-  .spacing-grid { display: flex; flex-direction: column; gap: 2px; border-radius: var(--r2); overflow: hidden; border: 1px solid var(--border); }
-  .spacing-row { background: var(--bg3); padding: 16px 24px; display: flex; align-items: center; gap: 20px; transition: background .2s; }
-  .spacing-row:hover { background: var(--surface); }
+  .spacing-grid { display: flex; flex-direction: column; gap: 2px; border-radius: var(--r-2); overflow: hidden; border: 1px solid var(--border); }
+  .spacing-row { background: var(--bg-card); padding: 16px 24px; display: flex; align-items: center; gap: 20px; transition: background .2s; }
+  .spacing-row:hover { background: var(--bg-hover); }
   .spacing-bar-wrap { flex: 1; }
   .spacing-bar { height: 6px; border-radius: 3px; background: var(--accent); opacity: .5; }
-  .spacing-meta { font-family: 'DM Mono', monospace; font-size: 12px; color: var(--text3); min-width: 80px; transition: color .3s; }
-  .spacing-name { font-size: 13px; color: var(--text2); min-width: 100px; transition: color .3s; }
+  .spacing-meta { font-family: 'DM Mono', monospace; font-size: 12px; color: var(--text-label); min-width: 60px; text-align: right; transition: color .3s; }
+  .spacing-name { font-family: 'DM Mono', monospace; font-size: 12px; color: var(--text-title); min-width: 90px; transition: color .3s; }
+  .spacing-use { font-size: 13px; color: var(--text-body); min-width: 200px; transition: color .3s; }
 
   /* ===== RADIUS ===== */
   .radius-grid { display: flex; gap: 16px; flex-wrap: wrap; }
-  .radius-card { background: var(--bg3); border: 1px solid var(--border); padding: 24px; display: flex; flex-direction: column; align-items: center; gap: 14px; flex: 1; min-width: 120px; transition: background .3s, border-color .3s; }
-  .radius-demo { width: 60px; height: 60px; background: var(--surface2); border: 1px solid var(--border); transition: background .3s, border-color .3s; }
-  .radius-label { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--text3); text-align: center; transition: color .3s; }
-  .radius-name { font-size: 13px; color: var(--text2); font-weight: 500; transition: color .3s; }
+  .radius-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--r); padding: 24px; display: flex; flex-direction: column; align-items: center; gap: 14px; flex: 1; min-width: 120px; transition: background .3s, border-color .3s; }
+  .radius-demo { width: 60px; height: 60px; background: var(--bg-hover); border: 1px solid var(--border-strong); transition: background .3s, border-color .3s; }
+  .radius-label { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--text-label); text-align: center; line-height: 1.6; transition: color .3s; }
+  .radius-name { font-size: 13px; color: var(--text-title); font-weight: 500; transition: color .3s; }
 
   /* ===== INFO BOXES ===== */
-  .info-box { background: var(--bg3); border: 1px solid var(--border); border-radius: var(--r); padding: 20px 24px; transition: background .3s, border-color .3s; }
-  .info-box-accent { background: var(--bg3); border: 1px solid rgba(70,130,160,.2); border-radius: var(--r); padding: 20px 24px; transition: background .3s; }
-  .info-box-title { font-family:'DM Mono',monospace; font-size:11px; color:var(--text3); text-transform:uppercase; letter-spacing:.1em; margin-bottom:10px; transition: color .3s; }
-  .info-box-code { font-family:'DM Mono',monospace; font-size:12px; color:var(--text2); line-height:1.9; transition: color .3s; }
+  .info-box { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--r); padding: 20px 24px; transition: background .3s, border-color .3s; }
+  .info-box-accent { background: var(--bg-card); border: 1px solid var(--accent-tint-border); border-radius: var(--r); padding: 20px 24px; transition: background .3s; }
+  .info-box-title { font-family:'DM Mono',monospace; font-size:11px; color:var(--text-label); text-transform:uppercase; letter-spacing:.1em; margin-bottom:10px; transition: color .3s; }
+  .info-box-code { font-family:'DM Mono',monospace; font-size:12px; color:var(--text-body); line-height:1.9; transition: color .3s; }
+  .info-box-text { font-size:13px; color:var(--text-body); line-height:1.7; transition: color .3s; }
+  .info-box-text strong { color: var(--text-title); }
+  .info-box-text code { font-family:'DM Mono',monospace; font-size:12px; color:var(--accent); }
 </style>
 </head>
 <body>
 
 <nav>
   <div class="nav-brand">
-    <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
+    <svg width="22" height="22" viewBox="0 0 22 22" fill="none" aria-hidden="true">
       <rect width="22" height="22" rx="5" fill="url(#logoGrad)"/>
-      <text x="3" y="17" font-family="Advent Pro, sans-serif" font-weight="800" font-size="15" fill="white">ts</text>
+      <path fill="#fff" d="M4.71 15.02V10.52H6.045L6.405 9.5H4.71V6.5H3.585V15.02Q3.585 15.95 4.027 16.483Q4.47 17.015 5.4 17.195L5.745 16.325Q5.4 16.25 5.175 16.085Q4.95 15.92 4.83 15.657Q4.71 15.395 4.71 15.02ZM11.595 10.685 12 9.845Q11.67 9.635 11.332 9.515Q10.995 9.395 10.665 9.35Q10.335 9.305 10.035 9.305Q9.57 9.305 9.135 9.433Q8.7 9.56 8.34 9.808Q7.98 10.055 7.77 10.43Q7.56 10.805 7.56 11.3Q7.56 11.81 7.777 12.163Q7.995 12.515 8.348 12.77Q8.7 13.025 9.127 13.213Q9.555 13.4 9.982 13.573Q10.41 13.745 10.762 13.94Q11.115 14.135 11.332 14.398Q11.55 14.66 11.55 15.02Q11.55 15.335 11.4 15.56Q11.25 15.785 11.01 15.935Q10.77 16.085 10.492 16.152Q10.215 16.22 9.96 16.22Q9.555 16.22 9.18 16.115Q8.805 16.01 8.467 15.8Q8.13 15.59 7.83 15.305L7.185 15.965Q7.71 16.565 8.46 16.91Q9.21 17.255 10.02 17.255Q10.515 17.255 10.98 17.112Q11.445 16.97 11.828 16.685Q12.21 16.4 12.435 15.98Q12.66 15.56 12.66 15.005Q12.66 14.45 12.442 14.06Q12.225 13.67 11.865 13.4Q11.505 13.13 11.078 12.935Q10.65 12.74 10.23 12.575Q9.81 12.41 9.45 12.23Q9.09 12.05 8.872 11.825Q8.655 11.6 8.655 11.27Q8.655 11.015 8.797 10.828Q8.94 10.64 9.172 10.527Q9.405 10.415 9.675 10.37Q9.945 10.325 10.185 10.325Q10.44 10.325 10.695 10.363Q10.95 10.4 11.182 10.483Q11.415 10.565 11.595 10.685Z"/>
       <defs>
-        <linearGradient id="logoGrad" x1="0" y1="0" x2="22" y2="22">
+        <linearGradient id="logoGrad" x1="0" y1="0" x2="22" y2="22" gradientUnits="userSpaceOnUse">
           <stop offset="0%" stop-color="#4682A0"/>
           <stop offset="100%" stop-color="#464BA1"/>
         </linearGradient>
       </defs>
     </svg>
-    Tiago Segato
+    Prof. Tiago Segato
   </div>
   <ul class="nav-links">
     <li><a href="#cores">Cores</a></li>
@@ -324,76 +291,70 @@
 
   <!-- HERO -->
   <div class="manual-hero">
-    <div class="manual-hero-glow"></div>
-    <div class="manual-hero-glow2"></div>
-    <div class="manual-hero-eyebrow">Identidade visual · v2.0 · 2025</div>
+    <div class="manual-hero-eyebrow">Identidade visual · v3.0 · 2026</div>
     <h1>Manual da<br><strong>Marca</strong></h1>
-    <p>Guia de referência visual de Tiago Segato — Professor especialista em IA, Web, Mobile e Design.</p>
+    <p>Guia de referência visual do professor Tiago Segato</p>
   </div>
 
   <!-- 01 CORES -->
   <div class="section" id="cores">
     <span class="section-label">01 · Paleta</span>
     <h2 class="section-title">Cores <strong>principais</strong></h2>
-    <p class="section-desc">Tema dark baseado no sistema visual da Apple, com os acentos azul e roxo da marca Tiago Segato. O light mode espelha os mesmos tokens com fundos claros Apple (#f5f5f7).</p>
+    <p class="section-desc">Visual clean inspirado na Apple: fundo escuro, muito respiro e o azul e o roxo da marca só onde guiam o olhar. O tema claro usa os mesmos tokens, com fundo #F0F0F0.</p>
 
-    <p class="sub-label">Fundos e superfícies</p>
-    <div class="color-grid" style="margin-bottom:16px;">
-      <div class="color-card color-card-bg">
-        <div class="color-swatch" style="background:#000;"></div>
-        <div><div class="color-name">Background</div><div class="color-hex">#000 · #f5f5f7</div><div class="color-role">Fundo principal da página</div></div>
+    <p class="sub-label">Fundos · escuro / claro</p>
+    <div class="color-grid cols-3" style="margin-bottom:16px;">
+      <div class="color-card">
+        <div class="color-swatches"><div class="color-swatch" style="background:#000000;"></div><div class="color-swatch" style="background:#f0f0f0;"></div></div>
+        <div><div class="color-name">bg</div><div class="color-hex">#000000 · #F0F0F0</div><div class="color-role">Fundo da página</div></div>
       </div>
-      <div class="color-card color-card-surface">
-        <div class="color-swatch" style="background:#0a0a0a;"></div>
-        <div><div class="color-name">Background 2</div><div class="color-hex">#0a0a0a · #ebebed</div><div class="color-role">Seções alternadas</div></div>
+      <div class="color-card">
+        <div class="color-swatches"><div class="color-swatch" style="background:#111111;"></div><div class="color-swatch" style="background:#ffffff;"></div></div>
+        <div><div class="color-name">bg-card</div><div class="color-hex">#111111 · #FFFFFF</div><div class="color-role">Cards, blocos internos e seções alternadas</div></div>
       </div>
-      <div class="color-card color-card-text">
-        <div class="color-swatch" style="background:#111;"></div>
-        <div><div class="color-name">Background 3</div><div class="color-hex">#111 · #ffffff</div><div class="color-role">Cards e blocos internos</div></div>
-      </div>
-      <div class="color-card color-card-surface">
-        <div class="color-swatch" style="background:#1c1c1e;"></div>
-        <div><div class="color-name">Surface</div><div class="color-hex">#1c1c1e · #e5e5ea</div><div class="color-role">Hover de cards, sobreposições</div></div>
+      <div class="color-card">
+        <div class="color-swatches"><div class="color-swatch" style="background:#1c1c1e;"></div><div class="color-swatch" style="background:#e5e5ea;"></div></div>
+        <div><div class="color-name">bg-hover</div><div class="color-hex">#1C1C1E · #E5E5EA</div><div class="color-role">Hover de cards e botão secundário</div></div>
       </div>
     </div>
 
-    <p class="sub-label">Texto</p>
+    <p class="sub-label">Texto e bordas · escuro / claro</p>
     <div class="color-grid" style="margin-bottom:16px;">
-      <div class="color-card color-card-bg">
-        <div class="color-swatch" style="background:#f5f5f7; border:1px solid var(--swatch-border);"></div>
-        <div><div class="color-name">Text</div><div class="color-hex">#f5f5f7 · #1d1d1f</div><div class="color-role">Títulos e texto principal</div></div>
+      <div class="color-card">
+        <div class="color-swatches"><div class="color-swatch" style="background:#f5f5f7;"></div><div class="color-swatch" style="background:#1d1d1f;"></div></div>
+        <div><div class="color-name">text-title</div><div class="color-hex">#F5F5F7 · #1D1D1F</div><div class="color-role">Títulos e texto principal</div></div>
       </div>
-      <div class="color-card color-card-bg">
-        <div class="color-swatch" style="background:#a1a1a6;"></div>
-        <div><div class="color-name">Text 2</div><div class="color-hex">#a1a1a6 · #515154</div><div class="color-role">Parágrafos e descrições</div></div>
+      <div class="color-card">
+        <div class="color-swatches"><div class="color-swatch" style="background:#a1a1a6;"></div><div class="color-swatch" style="background:#515154;"></div></div>
+        <div><div class="color-name">text-body</div><div class="color-hex">#A1A1A6 · #515154</div><div class="color-role">Parágrafos e descrições</div></div>
       </div>
-      <div class="color-card color-card-bg">
-        <div class="color-swatch" style="background:#6e6e73;"></div>
-        <div><div class="color-name">Text 3</div><div class="color-hex">#6e6e73 · #86868b</div><div class="color-role">Labels, metadados, placeholders</div></div>
+      <div class="color-card">
+        <div class="color-swatches"><div class="color-swatch" style="background:#838388;"></div><div class="color-swatch" style="background:#66666b;"></div></div>
+        <div><div class="color-name">text-label</div><div class="color-hex">#838388 · #66666B</div><div class="color-role">Labels e metadados. Evitar em texto longo</div></div>
       </div>
-      <div class="color-card color-card-bg">
-        <div class="color-swatch" style="background:rgba(128,128,128,0.2); border:1px solid rgba(128,128,128,0.3);"></div>
-        <div><div class="color-name">Border</div><div class="color-hex">rgba(255,255,255,.08)<br>rgba(0,0,0,.08)</div><div class="color-role">Bordas, divisores, linhas</div></div>
+      <div class="color-card">
+        <div class="color-swatches"><div class="color-swatch" style="background:rgba(255,255,255,.08);"></div><div class="color-swatch" style="background:rgba(0,0,0,.08);"></div></div>
+        <div><div class="color-name">border</div><div class="color-hex">branco 8% · preto 8%</div><div class="color-role">Bordas e divisores de 1px (reforçada: 14%)</div></div>
       </div>
     </div>
 
-    <p class="sub-label">Acentos da marca</p>
+    <p class="sub-label">Cores da marca · iguais nos dois temas</p>
     <div class="color-grid">
-      <div class="color-card color-card-accent">
-        <div class="color-swatch" style="background:#4682A0;"></div>
-        <div><div class="color-name">Accent Blue</div><div class="color-hex">#4682A0</div><div class="color-role">Cor primária, CTAs, links, destaques</div></div>
+      <div class="color-card">
+        <div class="color-swatches"><div class="color-swatch" style="background:#4682a0;"></div></div>
+        <div><div class="color-name">accent</div><div class="color-hex">#4682A0</div><div class="color-role">Cor principal: botões, links, labels, destaques</div></div>
       </div>
-      <div class="color-card color-card-purple">
-        <div class="color-swatch" style="background:#464BA1;"></div>
-        <div><div class="color-name">Purple</div><div class="color-hex">#464BA1</div><div class="color-role">Gradiente secundário, efeitos de luz</div></div>
+      <div class="color-card">
+        <div class="color-swatches"><div class="color-swatch" style="background:#464ba1;"></div></div>
+        <div><div class="color-name">purple</div><div class="color-hex">#464BA1</div><div class="color-role">Par do azul no gradiente e nos glows</div></div>
       </div>
-      <div class="color-card" style="background:rgba(41,151,255,.08);">
-        <div class="color-swatch" style="background:#2997ff;"></div>
-        <div><div class="color-name">Blue Comp.</div><div class="color-hex">#2997ff</div><div class="color-role">Azul complementar, hover states, brilho</div></div>
+      <div class="color-card">
+        <div class="color-swatches"><div class="color-swatch" style="background:#2997ff;"></div></div>
+        <div><div class="color-name">accent-2</div><div class="color-hex">#2997FF</div><div class="color-role">Brilhos, hover e ponto do badge. Nunca de fundo</div></div>
       </div>
-      <div class="color-card" style="background:rgba(191,90,242,.08);">
-        <div class="color-swatch" style="background:#bf5af2;"></div>
-        <div><div class="color-name">Purple Comp.</div><div class="color-hex">#bf5af2</div><div class="color-role">Roxo complementar, glows, detalhes</div></div>
+      <div class="color-card">
+        <div class="color-swatches"><div class="color-swatch" style="background:#bf5af2;"></div></div>
+        <div><div class="color-name">purple-2</div><div class="color-hex">#BF5AF2</div><div class="color-role">Glows e detalhes. Nunca de fundo</div></div>
       </div>
     </div>
   </div>
@@ -418,25 +379,9 @@
       <div class="gradient-card">
         <div class="gradient-preview" style="background:linear-gradient(135deg,#2997ff 0%,#bf5af2 100%);"></div>
         <div class="gradient-info">
-          <div class="gradient-name">Azul Comp. → Roxo Comp.</div>
-          <div class="gradient-code">linear-gradient(135deg, #2997ff 0%, #bf5af2 100%)</div>
-          <div class="gradient-use">→ Elementos de destaque vibrante, hero glows</div>
-        </div>
-      </div>
-      <div class="gradient-card">
-        <div class="gradient-preview" style="background:linear-gradient(180deg,#4682A0 0%,#464BA1 100%);"></div>
-        <div class="gradient-info">
-          <div class="gradient-name">Azul → Roxo (vertical)</div>
-          <div class="gradient-code">linear-gradient(180deg, #4682A0 0%, #464BA1 100%)</div>
-          <div class="gradient-use">→ Botões, badges coloridos, ícones de redes sociais</div>
-        </div>
-      </div>
-      <div class="gradient-card">
-        <div class="gradient-preview" style="background:linear-gradient(135deg,#464BA1 0%,#bf5af2 100%);"></div>
-        <div class="gradient-info">
-          <div class="gradient-name">Roxo → Roxo Comp.</div>
-          <div class="gradient-code">linear-gradient(135deg, #464BA1 0%, #bf5af2 100%)</div>
-          <div class="gradient-use">→ Hover states especiais, efeitos de luz roxo</div>
+          <div class="gradient-name">accent-2 → purple-2 (vibrante)</div>
+          <div class="gradient-code">linear-gradient(135deg, #2997FF 0%, #BF5AF2 100%)</div>
+          <div class="gradient-use">→ Detalhes de destaque vibrante, em áreas pequenas</div>
         </div>
       </div>
     </div>
@@ -458,7 +403,7 @@
   <div class="section" id="efeitos">
     <span class="section-label">03 · Efeitos de luz</span>
     <h2 class="section-title">Glows <strong>radiais</strong></h2>
-    <p class="section-desc">Halos de luz criados com gradientes radiais posicionados absolutamente. Dão profundidade e atmosfera sem poluir o conteúdo. Passe o mouse sobre os cards para ver cada efeito.</p>
+    <p class="section-desc">Halos de luz com gradientes radiais atrás do conteúdo. Dão profundidade sem poluir: no máximo um par por tela.</p>
 
     <div class="glow-grid">
       <div class="glow-card">
@@ -466,70 +411,49 @@
           <span class="glow-preview-text">Glow azul</span>
         </div>
         <div class="glow-info">
-          <div class="glow-name">Hero Glow — Azul primário</div>
+          <div class="glow-name">glow-blue · 700 × 500</div>
           <div class="glow-code">
-            position: absolute; width: 800px; height: 800px;<br>
-            background: radial-gradient(<br>
-            &nbsp;&nbsp;ellipse at center,<br>
-            &nbsp;&nbsp;rgba(70,130,160, 0.14) 0%, transparent 70%<br>
-            );<br>
-            top: 50%; left: 50%; transform: translate(-50%, -60%);
+            radial-gradient(ellipse at center,<br>
+            &nbsp;&nbsp;var(--glow-blue) 0%, transparent 70%)<br>
+            escuro: rgba(70,130,160, .15)<br>
+            claro: rgba(70,130,160, .32)
           </div>
         </div>
       </div>
       <div class="glow-card">
         <div class="glow-preview glow-purple-bg">
-          <span class="glow-preview-text">Glow roxo comp.</span>
+          <span class="glow-preview-text">Glow roxo</span>
         </div>
         <div class="glow-info">
-          <div class="glow-name">Hero Glow 2 — Roxo complementar</div>
+          <div class="glow-name">glow-purple · 400 × 300</div>
           <div class="glow-code">
-            position: absolute; width: 500px; height: 300px;<br>
-            background: radial-gradient(<br>
-            &nbsp;&nbsp;ellipse at center,<br>
-            &nbsp;&nbsp;rgba(191,90,242, 0.10) 0%, transparent 70%<br>
-            );<br>
-            bottom: 10%; right: 5%;
-          </div>
-        </div>
-      </div>
-      <div class="glow-card">
-        <div class="glow-preview glow-combo-bg">
-          <span class="glow-preview-text">Combinado</span>
-        </div>
-        <div class="glow-info">
-          <div class="glow-name">Hero — Azul + Roxo Comp. juntos</div>
-          <div class="glow-code">
-            /* Use os dois glows acima sobrepostos */<br>
-            /* Opacidade recomendada:<br>
-            &nbsp;&nbsp;azul: 0.10–0.16<br>
-            &nbsp;&nbsp;roxo: 0.07–0.10<br>
-            &nbsp;&nbsp;light mode: reduza ~30% */
-          </div>
-        </div>
-      </div>
-      <div class="glow-card">
-        <div class="glow-preview" style="position:relative;background:var(--glow-preview-bg);">
-          <div style="position:absolute;width:300px;height:300px;background:radial-gradient(ellipse at center,rgba(191,90,242,0.30) 0%,transparent 65%);top:50%;left:50%;transform:translate(-50%,-50%);"></div>
-          <span class="glow-preview-text" style="position:relative;z-index:1;">Glow roxo comp.</span>
-        </div>
-        <div class="glow-info">
-          <div class="glow-name">Glow roxo complementar isolado</div>
-          <div class="glow-code">
-            background: radial-gradient(<br>
-            &nbsp;&nbsp;ellipse at center,<br>
-            &nbsp;&nbsp;rgba(191,90,242, 0.12) 0%,<br>
-            &nbsp;&nbsp;transparent 65%<br>
-            );<br>
-            /* Para seções de destaque especial */
+            radial-gradient(ellipse at center,<br>
+            &nbsp;&nbsp;var(--glow-purple) 0%, transparent 70%)<br>
+            escuro: rgba(191,90,242, .08)<br>
+            claro: rgba(191,90,242, .24)
           </div>
         </div>
       </div>
     </div>
 
+    <div class="glow-card" style="margin-top:16px;">
+      <div class="glow-preview glow-cover">
+        <span class="glow-preview-text">Glow de capa</span>
+      </div>
+      <div class="glow-info">
+        <div class="glow-name">Glow de capa · azul + roxo fundidos no centro</div>
+        <div class="glow-code">
+          Fundo de todas as capas de slides. Dois halos grandes que se fundem no meio e somem nas bordas.<br>
+          radial-gradient(ellipse 32% 45% at 37% 41%, rgba(70,130,160, .58) 0%, transparent 100%),<br>
+          radial-gradient(ellipse 32% 45% at 63% 59%, rgba(70,75,161, .55) 0%, transparent 100%)<br>
+          escuro: azul .45 · roxo .50
+        </div>
+      </div>
+    </div>
+
     <div class="info-box-accent" style="margin-top:16px;">
-      <div style="font-size:13px;color:var(--text2);line-height:1.7;transition:color .3s;">
-        <strong style="color:var(--text);transition:color .3s;">Regra de uso:</strong> Os glows devem ter <code style="font-family:'DM Mono',monospace;font-size:12px;color:var(--accent);">pointer-events: none</code> e nunca ultrapassar opacidade 0.20 no dark e 0.14 no light. Posicione-os com <code style="font-family:'DM Mono',monospace;font-size:12px;color:var(--accent);">position: absolute</code> dentro de um container com <code style="font-family:'DM Mono',monospace;font-size:12px;color:var(--accent);">overflow: hidden</code>.
+      <div class="info-box-text">
+        <strong>Regra de uso:</strong> glows sempre com <code>pointer-events: none</code> e <code>position: absolute</code> dentro de um container com <code>overflow: hidden</code>. Use os valores dos tokens <code>glow-blue</code> e <code>glow-purple</code>: no tema claro eles são mais fortes de propósito, para o halo aparecer sobre o fundo claro.
       </div>
     </div>
   </div>
@@ -540,32 +464,36 @@
   <div class="section" id="tipografia">
     <span class="section-label">04 · Tipografia</span>
     <h2 class="section-title">Fontes <strong>da marca</strong></h2>
-    <p class="section-desc">Três famílias: Advent Pro para títulos principais e de seção, DM Sans para texto corrido, e DM Mono para labels técnicos, metadados e código.</p>
+    <p class="section-desc">Três famílias: Advent Pro para títulos, DM Sans para texto corrido e botões, e DM Mono para labels, metadados e código.</p>
 
     <div class="type-grid">
       <div class="type-row">
-        <div class="type-sample" style="font-family:'Advent Pro',sans-serif;font-size:48px;font-weight:300;letter-spacing:-.03em;line-height:1;color:var(--text);">Título Principal</div>
-        <div class="type-meta"><div class="type-meta-name">Advent Pro</div><div class="type-meta-spec">300 · clamp(44–88px) · -0.03em</div></div>
+        <div class="type-sample" style="font-family:'Advent Pro',sans-serif;font-size:48px;font-weight:300;letter-spacing:-.03em;line-height:1.05;color:var(--text-title);">Título <strong style="font-weight:800;background:linear-gradient(135deg,#4682A0 0%,#464BA1 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">Principal</strong></div>
+        <div class="type-meta"><div class="type-meta-name">ts-h1 · Advent Pro</div><div class="type-meta-spec">300 + 800 · 40–68px · -0.03em</div></div>
       </div>
       <div class="type-row">
-        <div class="type-sample" style="font-family:'Advent Pro',sans-serif;font-size:36px;font-weight:300;letter-spacing:-.025em;line-height:1.1;color:var(--text);">Título de Seção</div>
-        <div class="type-meta"><div class="type-meta-name">Advent Pro</div><div class="type-meta-spec">300 · clamp(28–46px) · -0.025em</div></div>
+        <div class="type-sample" style="font-family:'Advent Pro',sans-serif;font-size:36px;font-weight:300;letter-spacing:-.025em;line-height:1.1;color:var(--text-title);">Título de <strong style="font-weight:700;">Seção</strong></div>
+        <div class="type-meta"><div class="type-meta-name">ts-h2 · Advent Pro</div><div class="type-meta-spec">300 + 700 · 28–46px · -0.025em</div></div>
       </div>
       <div class="type-row">
-        <div class="type-sample" style="font-family:'Advent Pro',sans-serif;font-size:20px;font-weight:600;letter-spacing:-.01em;color:var(--text);">Título de Card</div>
-        <div class="type-meta"><div class="type-meta-name">Advent Pro</div><div class="type-meta-spec">600 · 17–20px · -0.01em</div></div>
+        <div class="type-sample" style="font-family:'Advent Pro',sans-serif;font-size:20px;font-weight:600;letter-spacing:-.01em;line-height:1.2;color:var(--text-title);">Título de Card</div>
+        <div class="type-meta"><div class="type-meta-name">ts-h3 · Advent Pro</div><div class="type-meta-spec">600 · 17–20px · -0.01em</div></div>
       </div>
       <div class="type-row">
-        <div class="type-sample" style="font-size:16px;font-weight:300;color:var(--text2);line-height:1.7;">Texto descritivo para parágrafos e explicações, mantendo leveza visual com peso 300 e altura de linha generosa.</div>
-        <div class="type-meta"><div class="type-meta-name">DM Sans</div><div class="type-meta-spec">300 · 15–17px · 1.7 line-height</div></div>
+        <div class="type-sample" style="font-size:16px;font-weight:300;color:var(--text-body);line-height:1.7;">Texto descritivo para parágrafos e explicações, mantendo leveza visual com peso 300 e altura de linha generosa.</div>
+        <div class="type-meta"><div class="type-meta-name">ts-body · DM Sans</div><div class="type-meta-spec">300 · 15–17px · 1.7</div></div>
       </div>
       <div class="type-row">
-        <div class="type-sample" style="font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);">Label de seção</div>
-        <div class="type-meta"><div class="type-meta-name">DM Mono</div><div class="type-meta-spec">400 · 11px · 0.14em · CAPS</div></div>
+        <div class="type-sample" style="font-size:15px;font-weight:500;color:var(--text-title);">Quero me inscrever →</div>
+        <div class="type-meta"><div class="type-meta-name">ts-button · DM Sans</div><div class="type-meta-spec">500 · 15px · botões e badges</div></div>
       </div>
       <div class="type-row">
-        <div class="type-sample" style="font-family:'DM Mono',monospace;font-size:12px;color:var(--text3);line-height:1.8;">#4682A0 · border-radius: 18px<br>padding: 13px 26px</div>
-        <div class="type-meta"><div class="type-meta-name">DM Mono</div><div class="type-meta-spec">400 · 11–13px · código e specs</div></div>
+        <div class="type-sample" style="font-family:'DM Mono',monospace;font-size:11px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);">01 · Label de seção</div>
+        <div class="type-meta"><div class="type-meta-name">ts-label · DM Mono</div><div class="type-meta-spec">500 · 11px · 0.14em · CAIXA ALTA</div></div>
+      </div>
+      <div class="type-row">
+        <div class="type-sample" style="font-family:'DM Mono',monospace;font-size:12px;color:var(--text-label);line-height:1.8;">#4682A0 · border-radius: 18px<br>padding: 13px 26px</div>
+        <div class="type-meta"><div class="type-meta-name">ts-code · DM Mono</div><div class="type-meta-spec">400 · 12px · código e specs</div></div>
       </div>
     </div>
 
@@ -582,10 +510,10 @@
     <div class="info-box-accent" style="margin-top:16px;">
       <div class="info-box-title">Uso resumido</div>
       <div class="info-box-code">
-        h1, h2 (títulos) → font-family: 'Advent Pro'<br>
-        h3, cards, destaques → font-family: 'Advent Pro', weight 600<br>
-        parágrafos, botões, body → font-family: 'DM Sans'<br>
-        labels, código, specs → font-family: 'DM Mono'
+        h1, h2 (títulos) → Advent Pro 300, destaque em 800 / 700<br>
+        h3, títulos de card → Advent Pro 600<br>
+        parágrafos, botões, badges → DM Sans<br>
+        labels, código, specs → DM Mono
       </div>
     </div>
   </div>
@@ -596,68 +524,67 @@
   <div class="section" id="componentes">
     <span class="section-label">05 · Componentes</span>
     <h2 class="section-title">Elementos <strong>de interface</strong></h2>
-    <p class="section-desc">Botões, badges e cards prontos para reutilização. Todos seguem os tokens de cor, tipografia e espaçamento definidos acima.</p>
+    <p class="section-desc">Botões, badges, cards e cabeçalho de seção prontos para reutilização. Todos usam os tokens acima.</p>
 
     <div class="comp-grid">
       <div class="comp-block">
-        <div class="comp-label">Botões</div>
+        <div class="comp-label">Button</div>
         <div class="comp-preview">
           <button class="btn-primary">Quero me inscrever →</button>
           <button class="btn-secondary">Ver mais ↓</button>
         </div>
         <div class="comp-code">
           /* Primário */<br>
-          background: #4682A0 · color: #fff<br>
-          padding: 13px 26px · border-radius: 100px · font: 500 15px DM Sans<br>
-          hover → background: #3a6f8c + translateY(-1px) + box-shadow<br><br>
+          background: accent · color: on-accent (branco)<br>
+          padding: 13px 26px · radius: r-pill · DM Sans 500 15px<br>
+          hover → accent-hover + translateY(-1px) + shadow-lift<br><br>
           /* Secundário */<br>
-          background: var(--surface) · border: 1px solid var(--border)<br>
-          hover → var(--surface2) + translateY(-1px)
+          background: bg-hover · color: text-title · border: 1px border<br>
+          hover → border-strong + translateY(-1px)
         </div>
       </div>
 
       <div class="comp-block">
-        <div class="comp-label">Badge de status</div>
+        <div class="comp-label">Badge</div>
         <div class="comp-preview">
           <div class="badge"><span class="badge-dot"></span>Curso de Extensão · EaD · Gratuito</div>
         </div>
         <div class="comp-code">
-          background: rgba(70,130,160, 0.12)<br>
-          border: 1px solid rgba(70,130,160, 0.25)<br>
-          border-radius: 100px · padding: 6px 16px<br>
-          font: 500 13px DM Sans · color: #4682A0<br>
-          dot: 6px · background: #2997ff · animation: pulse 2s
+          background: accent-tint · border: 1px accent-tint-border<br>
+          radius: r-pill · padding: 6px 16px<br>
+          DM Sans 500 13px · color: accent<br>
+          ponto: 6px · accent-2 · pulso 2s
         </div>
       </div>
 
       <div class="comp-block">
-        <div class="comp-label">Card de conteúdo</div>
+        <div class="comp-label">ContentCard</div>
         <div class="comp-preview">
           <div class="card-demo" style="max-width:300px;">
             <div class="card-demo-tag">Módulo 01 · 80h</div>
             <div class="card-demo-title">Introdução à Programação</div>
-            <div class="card-demo-desc">Passe o mouse para ver o hover. Fundo muda suavemente em 0.25s.</div>
+            <div class="card-demo-desc">Lógica, algoritmos e primeiros passos.</div>
           </div>
         </div>
         <div class="comp-code">
-          background: var(--bg3) → var(--surface) no hover<br>
-          border: 1px solid var(--border)<br>
-          border-radius: 24px · padding: 28–40px<br>
-          transition: background 0.25s ease<br>
-          title: Advent Pro 600 · tag: DM Mono 11px CAPS #4682A0
+          background: bg-card → bg-hover no hover (0.25s)<br>
+          border: 1px border · radius: r-2 (24px) · padding: 28px<br>
+          tag: DM Mono 11px caixa alta, accent<br>
+          título: Advent Pro 600 20px · descrição: DM Sans 13px, text-label
         </div>
       </div>
 
       <div class="comp-block">
-        <div class="comp-label">Section tag + título</div>
+        <div class="comp-label">SectionHeading</div>
         <div class="comp-preview" style="flex-direction:column;align-items:flex-start;gap:8px;">
           <span class="section-label" style="margin:0;">01 · Estrutura curricular</span>
-          <div style="font-family:'Advent Pro',sans-serif;font-size:28px;font-weight:300;letter-spacing:-.025em;color:var(--text);transition:color .3s;">Três módulos. <strong style="font-weight:700;">Uma jornada completa.</strong></div>
+          <div style="font-family:'Advent Pro',sans-serif;font-size:28px;font-weight:300;letter-spacing:-.025em;color:var(--text-title);transition:color .3s;">Três módulos. <strong style="font-weight:700;">Uma jornada completa.</strong></div>
+          <div style="font-size:15px;font-weight:300;color:var(--text-body);max-width:520px;line-height:1.7;">Descrição opcional da seção, em uma ou duas linhas.</div>
         </div>
         <div class="comp-code">
-          tag: DM Mono · 11px · 0.14em letter-spacing · CAPS · #4682A0<br>
-          título: Advent Pro · 300/700 · -0.025em tracking<br>
-          strong dentro do título: font-weight 700 (sem gradiente)
+          label: DM Mono 11px · 0.14em · caixa alta · accent · formato "NN · Tópico"<br>
+          título: Advent Pro 300 · -0.025em · destaque em &lt;strong&gt; 700, sem gradiente<br>
+          descrição (opcional): DM Sans 300 15px · text-body · até 520px
         </div>
       </div>
     </div>
@@ -674,35 +601,27 @@
     <div class="motion-grid">
       <div class="motion-card">
         <div class="motion-demo-area"><div class="motion-box"></div></div>
-        <div class="motion-label">Fade + Slide Up (scroll reveal)</div>
-        <div class="motion-value">opacity: 0 → 1 + translateY(28px → 0)</div>
-        <div class="motion-value" style="font-family:'DM Mono',monospace;font-size:11px;color:var(--accent);margin-top:6px;">duration: 0.65s · ease</div>
-        <div class="motion-hint">Passe o mouse para ver</div>
+        <div class="motion-label">Entrada (scroll reveal)</div>
+        <div class="motion-value">opacity 0 → 1 + translateY(28px → 0)</div>
+        <div class="motion-spec">0.65s · ease</div>
       </div>
       <div class="motion-card">
-        <div class="motion-demo-area"><div class="motion-fade-box"></div></div>
-        <div class="motion-label">Fade simples (hover de elementos)</div>
-        <div class="motion-value">opacity: 0 → 1</div>
-        <div class="motion-value" style="font-family:'DM Mono',monospace;font-size:11px;color:var(--accent);margin-top:6px;">duration: 0.4s · ease</div>
-        <div class="motion-hint">Passe o mouse para ver</div>
+        <div class="motion-demo-area"><div class="motion-lift">Hover</div></div>
+        <div class="motion-label">Lift (hover de botão)</div>
+        <div class="motion-value">translateY(-1px) + shadow-lift</div>
+        <div class="motion-spec">0.2s · ease</div>
       </div>
       <div class="motion-card">
         <div class="motion-demo-area"><div class="motion-pulse-box"></div></div>
-        <div class="motion-label">Pulse (badge dot)</div>
-        <div class="motion-value">scale + opacity loop</div>
-        <div class="motion-value" style="font-family:'DM Mono',monospace;font-size:11px;color:var(--accent);margin-top:6px;">duration: 2s · ease · infinite</div>
-        <div class="motion-hint">Sempre ativo</div>
+        <div class="motion-label">Pulso (ponto do badge)</div>
+        <div class="motion-value">scale + opacity em loop</div>
+        <div class="motion-spec">2s · ease · infinito</div>
       </div>
       <div class="motion-card">
-        <div class="motion-demo-area">
-          <div style="width:80px;height:36px;border-radius:100px;background:var(--accent);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:500;color:#fff;transition:all .2s;cursor:pointer;"
-            onmouseover="this.style.transform='translateY(-2px)';this.style.boxShadow='0 8px 32px rgba(70,130,160,.4)'"
-            onmouseout="this.style.transform='';this.style.boxShadow=''">Hover</div>
-        </div>
-        <div class="motion-label">Lift (hover de botão)</div>
-        <div class="motion-value">translateY(-1px) + box-shadow</div>
-        <div class="motion-value" style="font-family:'DM Mono',monospace;font-size:11px;color:var(--accent);margin-top:6px;">duration: 0.2s · ease</div>
-        <div class="motion-hint">Passe o mouse para ver</div>
+        <div class="motion-demo-area"><div class="card-demo" style="padding:12px 18px;font-size:12px;color:var(--text-body);">Card</div></div>
+        <div class="motion-label">Hover de card</div>
+        <div class="motion-value">bg-card → bg-hover</div>
+        <div class="motion-spec">0.25s · ease</div>
       </div>
     </div>
 
@@ -715,10 +634,10 @@
         .reveal.visible { opacity: 1; transform: translateY(0); }<br>
         .reveal-delay-1 { transition-delay: 0.1s; }<br><br>
         /* JS */<br>
-        const obs = new IntersectionObserver(entries => {<br>
-        &nbsp;&nbsp;entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });<br>
+        const obs = new IntersectionObserver(entries =&gt; {<br>
+        &nbsp;&nbsp;entries.forEach(e =&gt; { if (e.isIntersecting) e.target.classList.add('visible'); });<br>
         }, { threshold: 0.1 });<br>
-        document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+        document.querySelectorAll('.reveal').forEach(el =&gt; obs.observe(el));
       </div>
     </div>
   </div>
@@ -729,35 +648,35 @@
   <div class="section" id="espacamento">
     <span class="section-label">07 · Espaçamento e raio</span>
     <h2 class="section-title">Grid e <strong>bordas</strong></h2>
-    <p class="section-desc">Sistema de espaçamento consistente e dois tokens de border-radius para manter coerência visual entre todos os elementos.</p>
+    <p class="section-desc">Seis passos de espaçamento e quatro raios para manter a coerência entre todos os elementos.</p>
 
-    <p class="sub-label">Espaçamento vertical entre seções</p>
+    <p class="sub-label">Espaçamento</p>
     <div class="spacing-grid" style="margin-bottom:40px;">
-      <div class="spacing-row"><div class="spacing-name">xs</div><div class="spacing-bar-wrap"><div class="spacing-bar" style="width:8px;"></div></div><div class="spacing-meta">8px</div></div>
-      <div class="spacing-row"><div class="spacing-name">sm</div><div class="spacing-bar-wrap"><div class="spacing-bar" style="width:16px;"></div></div><div class="spacing-meta">16px</div></div>
-      <div class="spacing-row"><div class="spacing-name">md</div><div class="spacing-bar-wrap"><div class="spacing-bar" style="width:28px;"></div></div><div class="spacing-meta">28px</div></div>
-      <div class="spacing-row"><div class="spacing-name">lg</div><div class="spacing-bar-wrap"><div class="spacing-bar" style="width:48px;"></div></div><div class="spacing-meta">48px</div></div>
-      <div class="spacing-row"><div class="spacing-name">xl</div><div class="spacing-bar-wrap"><div class="spacing-bar" style="width:80px;"></div></div><div class="spacing-meta">80px</div></div>
-      <div class="spacing-row"><div class="spacing-name">2xl</div><div class="spacing-bar-wrap"><div class="spacing-bar" style="width:120px;"></div></div><div class="spacing-meta">section padding: 80px</div></div>
+      <div class="spacing-row"><div class="spacing-name">space-xs</div><div class="spacing-use">Mínimo</div><div class="spacing-bar-wrap"><div class="spacing-bar" style="width:8px;"></div></div><div class="spacing-meta">8px</div></div>
+      <div class="spacing-row"><div class="spacing-name">space-sm</div><div class="spacing-use">Gaps de grade</div><div class="spacing-bar-wrap"><div class="spacing-bar" style="width:16px;"></div></div><div class="spacing-meta">16px</div></div>
+      <div class="spacing-row"><div class="spacing-name">space-md</div><div class="spacing-use">Padding de card</div><div class="spacing-bar-wrap"><div class="spacing-bar" style="width:28px;"></div></div><div class="spacing-meta">28px</div></div>
+      <div class="spacing-row"><div class="spacing-name">space-lg</div><div class="spacing-use">Abaixo da descrição de seção</div><div class="spacing-bar-wrap"><div class="spacing-bar" style="width:48px;"></div></div><div class="spacing-meta">48px</div></div>
+      <div class="spacing-row"><div class="spacing-name">space-xl</div><div class="spacing-use">Padding vertical de seção</div><div class="spacing-bar-wrap"><div class="spacing-bar" style="width:80px;"></div></div><div class="spacing-meta">80px</div></div>
+      <div class="spacing-row"><div class="spacing-name">space-2xl</div><div class="spacing-use">Respiro máximo</div><div class="spacing-bar-wrap"><div class="spacing-bar" style="width:120px;"></div></div><div class="spacing-meta">120px</div></div>
     </div>
 
-    <p class="sub-label">Border Radius</p>
+    <p class="sub-label">Raios</p>
     <div class="radius-grid">
-      <div class="radius-card" style="border-radius:var(--r);">
+      <div class="radius-card">
         <div class="radius-demo" style="border-radius:18px;"></div>
-        <div class="radius-label"><div class="radius-name">--r</div>18px<br>Cards, badges, info cards</div>
+        <div class="radius-label"><div class="radius-name">r</div>18px<br>Badges, caixas de info</div>
       </div>
-      <div class="radius-card" style="border-radius:var(--r2);">
+      <div class="radius-card">
         <div class="radius-demo" style="border-radius:24px;"></div>
-        <div class="radius-label"><div class="radius-name">--r2</div>24px<br>Grids, vídeo, carrossel</div>
+        <div class="radius-label"><div class="radius-name">r-2</div>24px<br>Cards, grids, vídeo</div>
       </div>
-      <div class="radius-card" style="border-radius:var(--r);">
-        <div class="radius-demo" style="border-radius:100px;"></div>
-        <div class="radius-label"><div class="radius-name">pill</div>100px<br>Botões, badges, tags</div>
+      <div class="radius-card">
+        <div class="radius-demo" style="border-radius:100px;width:90px;height:40px;"></div>
+        <div class="radius-label"><div class="radius-name">r-pill</div>100px<br>Botões e tags</div>
       </div>
-      <div class="radius-card" style="border-radius:var(--r);">
-        <div class="radius-demo" style="border-radius:50%;width:60px;height:60px;"></div>
-        <div class="radius-label"><div class="radius-name">circle</div>50%<br>Ícones, dots, avatares</div>
+      <div class="radius-card">
+        <div class="radius-demo" style="border-radius:50%;"></div>
+        <div class="radius-label"><div class="radius-name">r-circle</div>50%<br>Ícones, pontos, avatares</div>
       </div>
     </div>
   </div>
@@ -772,13 +691,8 @@
 
   function applyTheme(theme) {
     html.setAttribute('data-theme', theme);
-    if (theme === 'light') {
-      iconMoon.style.display = 'none';
-      iconSun.style.display = 'block';
-    } else {
-      iconMoon.style.display = 'block';
-      iconSun.style.display = 'none';
-    }
+    iconMoon.style.display = theme === 'light' ? 'none' : 'block';
+    iconSun.style.display = theme === 'light' ? 'block' : 'none';
     try { localStorage.setItem('ts-theme', theme); } catch(e) {}
   }
 
