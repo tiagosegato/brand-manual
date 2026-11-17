@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt-BR" data-theme="dark">
+<html lang="pt-BR" data-ts-theme="dark">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,7 +8,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Advent+Pro:ital,wght@0,100..900;1,100..900&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
   /* ===== TOKENS DARK ===== */
-  [data-theme="dark"] {
+  :root, [data-ts-theme="dark"] {
     --bg: #000000; --bg-card: #111111; --bg-hover: #1c1c1e;
     --text-title: #f5f5f7; --text-body: #a1a1a6; --text-label: #838388;
     --border: rgba(255,255,255,0.08); --border-strong: rgba(255,255,255,0.14);
@@ -19,7 +19,7 @@
   }
 
   /* ===== TOKENS LIGHT ===== */
-  [data-theme="light"] {
+  [data-ts-theme="light"] {
     --bg: #f0f0f0; --bg-card: #ffffff; --bg-hover: #e5e5ea;
     --text-title: #1d1d1f; --text-body: #515154; --text-label: #66666b;
     --border: rgba(0,0,0,0.08); --border-strong: rgba(0,0,0,0.14);
@@ -31,16 +31,16 @@
 
   /* ===== CORES DA MARCA (iguais nos dois temas) ===== */
   :root {
-    --accent: #4682a0;
-    --accent-hover: #3a6f8c;
+    --blue: #4682a0;
+    --blue-hover: #3a6f8c;
     --purple: #464ba1;
-    --accent-2: #2997ff;
-    --purple-2: #bf5af2;
-    --on-accent: #ffffff;
-    --accent-tint: rgba(70,130,160,0.12);
-    --accent-tint-border: rgba(70,130,160,0.25);
+    --blue-bright: #2997ff;
+    --purple-bright: #bf5af2;
+    --on-blue: #ffffff;
+    --blue-tint: rgba(70,130,160,0.12);
+    --blue-tint-border: rgba(70,130,160,0.25);
     --shadow-lift: 0 8px 32px rgba(70,130,160,0.35);
-    --r: 18px; --r-2: 24px; --r-pill: 100px; --r-circle: 50%;
+    --radius-box: 18px; --radius-card: 24px; --radius-pill: 100px; --radius-circle: 50%;
   }
 
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -67,12 +67,12 @@
   .nav-links a:hover { color: var(--text-body); }
 
   .theme-toggle {
-    width: 34px; height: 34px; border-radius: var(--r-circle);
+    width: 34px; height: 34px; border-radius: var(--radius-circle);
     background: var(--bg-card); border: 1px solid var(--border-strong);
     display: flex; align-items: center; justify-content: center;
     cursor: pointer; transition: all .2s; color: var(--text-body); font-size: 14px;
   }
-  .theme-toggle:hover { transform: scale(1.1); border-color: var(--accent); color: var(--accent); }
+  .theme-toggle:hover { transform: scale(1.1); border-color: var(--blue); color: var(--blue); }
 
   /* ===== LAYOUT ===== */
   .page { max-width: 900px; margin: 0 auto; padding: 80px 40px 120px; }
@@ -80,7 +80,7 @@
   .section { margin-bottom: 100px; }
   .section-label {
     font-family: 'DM Mono', monospace; font-size: 11px; font-weight: 500;
-    color: var(--accent); letter-spacing: .14em; text-transform: uppercase;
+    color: var(--blue); letter-spacing: .14em; text-transform: uppercase;
     margin-bottom: 12px; display: block;
   }
   .section-title {
@@ -103,20 +103,20 @@
       radial-gradient(ellipse 30% 40% at 37% 44%, var(--glow-cover-blue) 0%, transparent 100%),
       radial-gradient(ellipse 30% 40% at 63% 56%, var(--glow-cover-purple) 0%, transparent 100%);
   }
-  .manual-hero-eyebrow { font-family: 'DM Mono', monospace; font-size: 12px; font-weight: 500; color: var(--accent); letter-spacing: .14em; text-transform: uppercase; margin-bottom: 20px; }
+  .manual-hero-eyebrow { font-family: 'DM Mono', monospace; font-size: 12px; font-weight: 500; color: var(--blue); letter-spacing: .14em; text-transform: uppercase; margin-bottom: 20px; }
   .manual-hero h1 {
     font-family: 'Advent Pro', sans-serif;
     font-size: clamp(40px, 6vw, 68px); font-weight: 300; letter-spacing: -.03em; line-height: 1.05; margin-bottom: 16px; color: var(--text-title); transition: color .3s;
   }
   .manual-hero h1 strong {
     font-weight: 800;
-    background: linear-gradient(135deg, var(--accent) 0%, var(--purple) 100%);
+    background: linear-gradient(135deg, var(--blue) 0%, var(--purple) 100%);
     -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
   }
   .manual-hero p { font-size: 16px; color: var(--text-body); font-weight: 300; max-width: 480px; margin: 0 auto; transition: color .3s; }
 
   /* ===== COLORS ===== */
-  .color-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2px; border-radius: var(--r-2); overflow: hidden; border: 1px solid var(--border); }
+  .color-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2px; border-radius: var(--radius-card); overflow: hidden; border: 1px solid var(--border); }
   .color-grid.cols-3 { grid-template-columns: repeat(3, 1fr); }
   .color-card { padding: 28px 22px; display: flex; flex-direction: column; gap: 16px; background: var(--bg-card); transition: background .3s; cursor: default; }
   .color-swatches { display: flex; gap: 6px; }
@@ -127,7 +127,7 @@
 
   /* ===== GRADIENTS ===== */
   .gradient-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-  .gradient-card { border-radius: var(--r-2); overflow: hidden; border: 1px solid var(--border); }
+  .gradient-card { border-radius: var(--radius-card); overflow: hidden; border: 1px solid var(--border); }
   .gradient-preview { height: 120px; }
   .gradient-info { padding: 20px 22px; background: var(--bg-card); transition: background .3s; }
   .gradient-name { font-size: 14px; font-weight: 500; color: var(--text-title); margin-bottom: 4px; transition: color .3s; }
@@ -136,7 +136,7 @@
 
   /* ===== GLOW ===== */
   .glow-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-  .glow-card { border-radius: var(--r-2); overflow: hidden; border: 1px solid var(--border); }
+  .glow-card { border-radius: var(--radius-card); overflow: hidden; border: 1px solid var(--border); }
   .glow-preview {
     height: 160px; position: relative; overflow: hidden;
     background: var(--bg); display: flex; align-items: center; justify-content: center;
@@ -166,7 +166,7 @@
   }
 
   /* ===== TYPOGRAPHY ===== */
-  .type-grid { display: flex; flex-direction: column; gap: 2px; border-radius: var(--r-2); overflow: hidden; border: 1px solid var(--border); }
+  .type-grid { display: flex; flex-direction: column; gap: 2px; border-radius: var(--radius-card); overflow: hidden; border: 1px solid var(--border); }
   .type-row { background: var(--bg-card); padding: 28px 32px; display: flex; align-items: baseline; justify-content: space-between; gap: 24px; transition: background .2s; }
   .type-row:hover { background: var(--bg-hover); }
   .type-sample { flex: 1; }
@@ -176,82 +176,82 @@
 
   /* ===== COMPONENTS ===== */
   .comp-grid { display: flex; flex-direction: column; gap: 48px; }
-  .comp-block { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--r-2); padding: 40px; transition: background .3s, border-color .3s; }
+  .comp-block { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-card); padding: 40px; transition: background .3s, border-color .3s; }
   .comp-label { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--text-label); letter-spacing: .1em; text-transform: uppercase; margin-bottom: 24px; transition: color .3s; }
   .comp-preview { display: flex; flex-wrap: wrap; gap: 16px; align-items: center; margin-bottom: 28px; padding-bottom: 28px; border-bottom: 1px solid var(--border); }
   .comp-code { font-family: 'DM Mono', monospace; font-size: 12px; color: var(--text-label); line-height: 1.8; transition: color .3s; }
 
   .btn-primary {
     display: inline-flex; align-items: center; gap: 8px;
-    background: var(--accent); color: var(--on-accent);
+    background: var(--blue); color: var(--on-blue);
     font-size: 15px; font-weight: 500; font-family: 'DM Sans', sans-serif;
-    padding: 13px 26px; border-radius: var(--r-pill); border: none; cursor: pointer; transition: all .2s;
+    padding: 13px 26px; border-radius: var(--radius-pill); border: none; cursor: pointer; transition: all .2s;
   }
-  .btn-primary:hover { background: var(--accent-hover); transform: translateY(-1px); box-shadow: var(--shadow-lift); }
+  .btn-primary:hover { background: var(--blue-hover); transform: translateY(-1px); box-shadow: var(--shadow-lift); }
   .btn-secondary {
     display: inline-flex; align-items: center; gap: 8px;
     background: var(--bg-hover); color: var(--text-title);
     font-size: 15px; font-weight: 500; font-family: 'DM Sans', sans-serif;
-    padding: 13px 26px; border-radius: var(--r-pill); border: 1px solid var(--border); cursor: pointer; transition: all .2s;
+    padding: 13px 26px; border-radius: var(--radius-pill); border: 1px solid var(--border); cursor: pointer; transition: all .2s;
   }
   .btn-secondary:hover { border-color: var(--border-strong); transform: translateY(-1px); }
 
   .badge {
     display: inline-flex; align-items: center; gap: 8px;
-    background: var(--accent-tint); border: 1px solid var(--accent-tint-border);
-    border-radius: var(--r-pill); padding: 6px 16px;
-    font-size: 13px; font-weight: 500; color: var(--accent); font-family: 'DM Sans', sans-serif;
+    background: var(--blue-tint); border: 1px solid var(--blue-tint-border);
+    border-radius: var(--radius-pill); padding: 6px 16px;
+    font-size: 13px; font-weight: 500; color: var(--blue); font-family: 'DM Sans', sans-serif;
   }
-  .badge-dot { width: 6px; height: 6px; border-radius: var(--r-circle); background: var(--accent-2); animation: pulse 2s ease infinite; }
+  .badge-dot { width: 6px; height: 6px; border-radius: var(--radius-circle); background: var(--blue-bright); animation: pulse 2s ease infinite; }
   @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.6;transform:scale(.85)} }
 
   .card-demo {
-    background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--r-2);
+    background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-card);
     padding: 28px; transition: background .25s;
   }
   .card-demo:hover { background: var(--bg-hover); }
-  .card-demo-tag { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--accent); letter-spacing: .12em; text-transform: uppercase; margin-bottom: 10px; }
+  .card-demo-tag { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--blue); letter-spacing: .12em; text-transform: uppercase; margin-bottom: 10px; }
   .card-demo-title { font-family: 'Advent Pro', sans-serif; font-size: 20px; font-weight: 600; letter-spacing: -.01em; color: var(--text-title); margin-bottom: 8px; transition: color .3s; }
   .card-demo-desc { font-size: 13px; color: var(--text-label); line-height: 1.6; transition: color .3s; }
 
   /* ===== MOTION ===== */
   .motion-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-  .motion-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--r-2); padding: 32px; transition: background .3s, border-color .3s; }
+  .motion-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-card); padding: 32px; transition: background .3s, border-color .3s; }
   .motion-demo-area { height: 80px; display: flex; align-items: center; justify-content: center; margin-bottom: 20px; }
-  .motion-box { width: 48px; height: 48px; border-radius: 12px; background: var(--accent); opacity: 0; transform: translateY(28px); transition: opacity .65s ease, transform .65s ease; }
+  .motion-box { width: 48px; height: 48px; border-radius: 12px; background: var(--blue); opacity: 0; transform: translateY(28px); transition: opacity .65s ease, transform .65s ease; }
   .motion-card:hover .motion-box { opacity: 1; transform: translateY(0); }
-  .motion-pulse-box { width: 10px; height: 10px; border-radius: var(--r-circle); background: var(--accent-2); animation: pulse 2s ease infinite; }
-  .motion-lift { padding: 10px 22px; border-radius: var(--r-pill); background: var(--accent); color: var(--on-accent); font-size: 13px; font-weight: 500; transition: all .2s; cursor: pointer; }
+  .motion-pulse-box { width: 10px; height: 10px; border-radius: var(--radius-circle); background: var(--blue-bright); animation: pulse 2s ease infinite; }
+  .motion-lift { padding: 10px 22px; border-radius: var(--radius-pill); background: var(--blue); color: var(--on-blue); font-size: 13px; font-weight: 500; transition: all .2s; cursor: pointer; }
   .motion-card:hover .motion-lift { transform: translateY(-1px); box-shadow: var(--shadow-lift); }
   .motion-label { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--text-label); letter-spacing: .1em; text-transform: uppercase; margin-bottom: 6px; transition: color .3s; }
   .motion-value { font-size: 13px; color: var(--text-body); transition: color .3s; }
   .motion-spec { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--text-label); margin-top: 6px; }
 
   /* ===== SPACING ===== */
-  .spacing-grid { display: flex; flex-direction: column; gap: 2px; border-radius: var(--r-2); overflow: hidden; border: 1px solid var(--border); }
+  .spacing-grid { display: flex; flex-direction: column; gap: 2px; border-radius: var(--radius-card); overflow: hidden; border: 1px solid var(--border); }
   .spacing-row { background: var(--bg-card); padding: 16px 24px; display: flex; align-items: center; gap: 20px; transition: background .2s; }
   .spacing-row:hover { background: var(--bg-hover); }
   .spacing-bar-wrap { flex: 1; }
-  .spacing-bar { height: 6px; border-radius: 3px; background: var(--accent); opacity: .5; }
+  .spacing-bar { height: 6px; border-radius: 3px; background: var(--blue); opacity: .5; }
   .spacing-meta { font-family: 'DM Mono', monospace; font-size: 12px; color: var(--text-label); min-width: 60px; text-align: right; transition: color .3s; }
   .spacing-name { font-family: 'DM Mono', monospace; font-size: 12px; color: var(--text-title); min-width: 90px; transition: color .3s; }
   .spacing-use { font-size: 13px; color: var(--text-body); min-width: 200px; transition: color .3s; }
 
   /* ===== RADIUS ===== */
   .radius-grid { display: flex; gap: 16px; flex-wrap: wrap; }
-  .radius-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--r); padding: 24px; display: flex; flex-direction: column; align-items: center; gap: 14px; flex: 1; min-width: 120px; transition: background .3s, border-color .3s; }
+  .radius-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-box); padding: 24px; display: flex; flex-direction: column; align-items: center; gap: 14px; flex: 1; min-width: 120px; transition: background .3s, border-color .3s; }
   .radius-demo { width: 60px; height: 60px; background: var(--bg-hover); border: 1px solid var(--border-strong); transition: background .3s, border-color .3s; }
   .radius-label { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--text-label); text-align: center; line-height: 1.6; transition: color .3s; }
   .radius-name { font-size: 13px; color: var(--text-title); font-weight: 500; transition: color .3s; }
 
   /* ===== INFO BOXES ===== */
-  .info-box { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--r); padding: 20px 24px; transition: background .3s, border-color .3s; }
-  .info-box-accent { background: var(--bg-card); border: 1px solid var(--accent-tint-border); border-radius: var(--r); padding: 20px 24px; transition: background .3s; }
+  .info-box { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-box); padding: 20px 24px; transition: background .3s, border-color .3s; }
+  .info-box-accent { background: var(--bg-card); border: 1px solid var(--blue-tint-border); border-radius: var(--radius-box); padding: 20px 24px; transition: background .3s; }
   .info-box-title { font-family:'DM Mono',monospace; font-size:11px; color:var(--text-label); text-transform:uppercase; letter-spacing:.1em; margin-bottom:10px; transition: color .3s; }
   .info-box-code { font-family:'DM Mono',monospace; font-size:12px; color:var(--text-body); line-height:1.9; transition: color .3s; }
   .info-box-text { font-size:13px; color:var(--text-body); line-height:1.7; transition: color .3s; }
   .info-box-text strong { color: var(--text-title); }
-  .info-box-text code { font-family:'DM Mono',monospace; font-size:12px; color:var(--accent); }
+  .info-box-text code { font-family:'DM Mono',monospace; font-size:12px; color:var(--blue); }
 </style>
 </head>
 <body>
@@ -342,7 +342,7 @@
     <div class="color-grid">
       <div class="color-card">
         <div class="color-swatches"><div class="color-swatch" style="background:#4682a0;"></div></div>
-        <div><div class="color-name">accent</div><div class="color-hex">#4682A0</div><div class="color-role">Cor principal: botões, links, labels, destaques</div></div>
+        <div><div class="color-name">blue</div><div class="color-hex">#4682A0</div><div class="color-role">Cor principal: botões, links, labels, destaques</div></div>
       </div>
       <div class="color-card">
         <div class="color-swatches"><div class="color-swatch" style="background:#464ba1;"></div></div>
@@ -350,11 +350,11 @@
       </div>
       <div class="color-card">
         <div class="color-swatches"><div class="color-swatch" style="background:#2997ff;"></div></div>
-        <div><div class="color-name">accent-2</div><div class="color-hex">#2997FF</div><div class="color-role">Brilhos, hover e ponto do badge. Nunca de fundo</div></div>
+        <div><div class="color-name">blue-bright</div><div class="color-hex">#2997FF</div><div class="color-role">Brilhos, hover e ponto do badge. Nunca de fundo</div></div>
       </div>
       <div class="color-card">
         <div class="color-swatches"><div class="color-swatch" style="background:#bf5af2;"></div></div>
-        <div><div class="color-name">purple-2</div><div class="color-hex">#BF5AF2</div><div class="color-role">Glows e detalhes. Nunca de fundo</div></div>
+        <div><div class="color-name">purple-bright</div><div class="color-hex">#BF5AF2</div><div class="color-role">Glows e detalhes. Nunca de fundo</div></div>
       </div>
     </div>
   </div>
@@ -379,7 +379,7 @@
       <div class="gradient-card">
         <div class="gradient-preview" style="background:linear-gradient(135deg,#2997ff 0%,#bf5af2 100%);"></div>
         <div class="gradient-info">
-          <div class="gradient-name">accent-2 → purple-2 (vibrante)</div>
+          <div class="gradient-name">blue-bright → purple-bright (vibrante)</div>
           <div class="gradient-code">linear-gradient(135deg, #2997FF 0%, #BF5AF2 100%)</div>
           <div class="gradient-use">→ Detalhes de destaque vibrante, em áreas pequenas</div>
         </div>
@@ -488,7 +488,7 @@
         <div class="type-meta"><div class="type-meta-name">ts-button · DM Sans</div><div class="type-meta-spec">500 · 15px · botões e badges</div></div>
       </div>
       <div class="type-row">
-        <div class="type-sample" style="font-family:'DM Mono',monospace;font-size:11px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);">01 · Label de seção</div>
+        <div class="type-sample" style="font-family:'DM Mono',monospace;font-size:11px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:var(--blue);">01 · Label de seção</div>
         <div class="type-meta"><div class="type-meta-name">ts-label · DM Mono</div><div class="type-meta-spec">500 · 11px · 0.14em · CAIXA ALTA</div></div>
       </div>
       <div class="type-row">
@@ -535,9 +535,9 @@
         </div>
         <div class="comp-code">
           /* Primário */<br>
-          background: accent · color: on-accent (branco)<br>
-          padding: 13px 26px · radius: r-pill · DM Sans 500 15px<br>
-          hover → accent-hover + translateY(-1px) + shadow-lift<br><br>
+          background: blue · color: on-blue (branco)<br>
+          padding: 13px 26px · radius: radius-pill · DM Sans 500 15px<br>
+          hover → blue-hover + translateY(-1px) + shadow-lift<br><br>
           /* Secundário */<br>
           background: bg-hover · color: text-title · border: 1px border<br>
           hover → border-strong + translateY(-1px)
@@ -550,10 +550,10 @@
           <div class="badge"><span class="badge-dot"></span>Curso de Extensão · EaD · Gratuito</div>
         </div>
         <div class="comp-code">
-          background: accent-tint · border: 1px accent-tint-border<br>
-          radius: r-pill · padding: 6px 16px<br>
-          DM Sans 500 13px · color: accent<br>
-          ponto: 6px · accent-2 · pulso 2s
+          background: blue-tint · border: 1px blue-tint-border<br>
+          radius: radius-pill · padding: 6px 16px<br>
+          DM Sans 500 13px · color: blue<br>
+          ponto: 6px · blue-bright · pulso 2s
         </div>
       </div>
 
@@ -568,8 +568,8 @@
         </div>
         <div class="comp-code">
           background: bg-card → bg-hover no hover (0.25s)<br>
-          border: 1px border · radius: r-2 (24px) · padding: 28px<br>
-          tag: DM Mono 11px caixa alta, accent<br>
+          border: 1px border · radius: radius-card (24px) · padding: 28px<br>
+          tag: DM Mono 11px caixa alta, blue<br>
           título: Advent Pro 600 20px · descrição: DM Sans 13px, text-label
         </div>
       </div>
@@ -582,7 +582,7 @@
           <div style="font-size:15px;font-weight:300;color:var(--text-body);max-width:520px;line-height:1.7;">Descrição opcional da seção, em uma ou duas linhas.</div>
         </div>
         <div class="comp-code">
-          label: DM Mono 11px · 0.14em · caixa alta · accent · formato "NN · Tópico"<br>
+          label: DM Mono 11px · 0.14em · caixa alta · blue · formato "NN · Tópico"<br>
           título: Advent Pro 300 · -0.025em · destaque em &lt;strong&gt; 700, sem gradiente<br>
           descrição (opcional): DM Sans 300 15px · text-body · até 520px
         </div>
@@ -664,19 +664,19 @@
     <div class="radius-grid">
       <div class="radius-card">
         <div class="radius-demo" style="border-radius:18px;"></div>
-        <div class="radius-label"><div class="radius-name">r</div>18px<br>Badges, caixas de info</div>
+        <div class="radius-label"><div class="radius-name">radius-box</div>18px<br>Badges, caixas de info</div>
       </div>
       <div class="radius-card">
         <div class="radius-demo" style="border-radius:24px;"></div>
-        <div class="radius-label"><div class="radius-name">r-2</div>24px<br>Cards, grids, vídeo</div>
+        <div class="radius-label"><div class="radius-name">radius-card</div>24px<br>Cards, grids, vídeo</div>
       </div>
       <div class="radius-card">
         <div class="radius-demo" style="border-radius:100px;width:90px;height:40px;"></div>
-        <div class="radius-label"><div class="radius-name">r-pill</div>100px<br>Botões e tags</div>
+        <div class="radius-label"><div class="radius-name">radius-pill</div>100px<br>Botões e tags</div>
       </div>
       <div class="radius-card">
         <div class="radius-demo" style="border-radius:50%;"></div>
-        <div class="radius-label"><div class="radius-name">r-circle</div>50%<br>Ícones, pontos, avatares</div>
+        <div class="radius-label"><div class="radius-name">radius-circle</div>50%<br>Ícones, pontos, avatares</div>
       </div>
     </div>
   </div>
@@ -690,18 +690,16 @@
   const iconSun = document.getElementById('iconSun');
 
   function applyTheme(theme) {
-    html.setAttribute('data-theme', theme);
+    html.setAttribute('data-ts-theme', theme);
     iconMoon.style.display = theme === 'light' ? 'none' : 'block';
     iconSun.style.display = theme === 'light' ? 'block' : 'none';
-    try { localStorage.setItem('ts-theme', theme); } catch(e) {}
   }
 
-  let saved = 'dark';
-  try { saved = localStorage.getItem('ts-theme') || 'dark'; } catch(e) {}
-  applyTheme(saved);
+  // Sempre abre no tema escuro.
+  applyTheme('dark');
 
   toggle.addEventListener('click', () => {
-    applyTheme(html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
+    applyTheme(html.getAttribute('data-ts-theme') === 'dark' ? 'light' : 'dark');
   });
 </script>
 </body>
